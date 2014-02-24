@@ -2,6 +2,9 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+
+echo 'Yii::app()->request->baseUrl: '.Yii::app()->request->baseUrl.'<br/>';
+echo 'Yii::app()->theme->baseUrl: '.Yii::app()->theme->baseUrl.'<br/>';
 ?>
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
