@@ -63,7 +63,7 @@ should you have any questions.</p>
 	<div class="page-header">
 		<h1>Modal window</h1>
 	</div>
-
+	
 	<p>
 		<!-- Button trigger modal -->
 		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
