@@ -176,7 +176,7 @@ class CListView extends CBaseListView
 	 */
 	public $afterAjaxUpdate;
 	/**
-	 * @var string the base script URL for all list view resources (e.g. javascript, CSS file, images).
+	 * @var string the base script URL for all list view resources (e.g. javascript, CSS file, images_jquery_ui).
 	 * Defaults to null, meaning using the integrated list view resources (which are published as assets).
 	 */
 	public $baseScriptUrl;

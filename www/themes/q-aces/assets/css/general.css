@@ -1,5 +1,45 @@
+/*** jQuery UI modfications ***/
+
+.ui-widget-overlay {
+	background-image: none;
+	background-color: #000000;
+	opacity: 0.5;
+}
+.ui-dialog {
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.ui-dialog .ui-dialog-titlebar {
+	border-radius: 0;
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid #e5e5e5;
+	border-left: none;
+	background: none;
+}
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+	background: none;
+	border: none;
+}
+.ui-dialog .ui-dialog-title {
+	cursor: default;
+	font-size: 18px;
+	font-weight: normal;
+}
+.ui-dialog .ui-dialog-buttonpane {
+	border-top: 1px solid #e5e5e5;
+	margin: 0;
+	padding: 3px 1px 0 1px;
+}
+
 /*** Bootstrap modifications ***/
 
+.navbar-static-top {
+	z-index: 0;
+}
 .dropdown-header {
 	cursor: default;
 }
@@ -56,4 +96,13 @@
 	border: 1px dashed green;
 	margin-right: -15px;
 	cursor: default;
+}
+
+
+
+
+
+
+.login_dialog {
+	margin-top: 27px;
 }

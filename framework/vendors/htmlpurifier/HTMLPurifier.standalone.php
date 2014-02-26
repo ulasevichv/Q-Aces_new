@@ -12757,7 +12757,7 @@ class HTMLPurifier_HTMLModule_Iframe extends HTMLPurifier_HTMLModule
 
 /**
  * XHTML 1.1 Image Module provides basic image embedding.
- * @note There is specialized code for removing empty images in
+ * @note There is specialized code for removing empty images_jquery_ui in
  *       HTMLPurifier_Strategy_RemoveForeignElements
  */
 class HTMLPurifier_HTMLModule_Image extends HTMLPurifier_HTMLModule
@@ -17217,7 +17217,7 @@ class HTMLPurifier_URIFilter_SafeIframe extends HTMLPurifier_URIFilter
 
 
 /**
- * Implements data: URI for base64 encoded images supported by GD.
+ * Implements data: URI for base64 encoded images_jquery_ui supported by GD.
  */
 class HTMLPurifier_URIScheme_data extends HTMLPurifier_URIScheme {
 
