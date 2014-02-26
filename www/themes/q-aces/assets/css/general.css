@@ -1,0 +1,45 @@
+/*** Bootstrap modifications ***/
+
+.dropdown-header {
+	cursor: default;
+}
+
+/*** General ***/
+
+#main_menu {
+	margin-bottom: 15px;
+}
+
+/*** Login controls ***/
+
+/*#main_menu .navbar-collapse {*/
+	/*position: relative;*/
+/*}*/
+/*.login_button_container {*/
+	/*position: absolute;*/
+	/*z-index: 1;*/
+	/*top: 10px;*/
+	/*right: 10px;*/
+	/*color: #ff0000;*/
+/*}*/
+
+
+/*.navbar-nav li.zzz {*/
+	/*float: right;*/
+/*}*/
+
+/*#main_menu .navbar-header {*/
+	/*float: left;*/
+/*}*/
+/*#main_menu .navbar-collapse {*/
+	/*position: relative;*/
+	/*float: left;*/
+	/*width: 100%;*/
+/*}*/
+/*#main_menu .navbar-collapse ul.navbar-nav {*/
+	/*width: 100%;*/
+/*}*/
+
+ul.login_items {
+	float: right;
+}
