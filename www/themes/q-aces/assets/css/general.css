@@ -40,6 +40,20 @@
 	/*width: 100%;*/
 /*}*/
 
-ul.login_items {
+#main_menu ul.login_items {
 	float: right;
+}
+#main_menu #login_menu_item {
+	cursor: pointer;
+}
+/*#main_menu #login_label {*/
+	/*cursor: pointer;*/
+/*}*/
+#main_menu #profile_menu_item a div {
+	float: left;
+	width: 100px;
+	height: 20px;
+	border: 1px dashed green;
+	margin-right: -15px;
+	cursor: default;
 }

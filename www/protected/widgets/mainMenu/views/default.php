@@ -11,7 +11,6 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-<!--			<div class="login_button">--><?php //echo CHtml::encode(Yii::t('general', 'Login')); ?><!--</div>-->
 		</div>
 		<div class="navbar-collapse collapse">
 			<?php
@@ -35,18 +34,37 @@
 							array('label' => Yii::t('general', 'One more separated link'), 'url' => '#'),
 						),
 					),
-//					array('label' => Yii::t('general', 'Login'), 'url' => '#', 'itemOptions' => array('class' => 'zzz')),
 				),
 			), true);
+			
 			echo $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav login_items'),
 				'items' => array(
-					array('label' => Yii::t('general', 'Login'), 'url' => '#', 'itemOptions' => array('class' => 'zzz')),
+					array(
+						'label' => '',
+						'url' => '',
+						'itemOptions' => array('id' => 'profile_menu_item'),
+//						'template' => '#{menu}#',
+						'template' => '<a><div></div></a>',
+					),
+					array(
+						'label' => Yii::t('general', 'Login'),
+						'url' => '',
+						'itemOptions' => array('id' => 'login_menu_item'),
+					),
 				),
 			), true);
-//			echo '<div class="login_button">'.CHtml::encode(Yii::t('general', 'Login')).'</div>';
 			?>
-<!--			<div class="login_button_container">--><?php //echo CHtml::encode(Yii::t('general', 'Login')); ?><!--</div>-->
 		</div>
 	</div>
 </div>
+
+<?php
+Yii::app()->clientScript->registerScript(uniqid(), "
+	
+	$('#login_menu_item').on('click', function()
+	{
+		alert('login');
+	});
+	
+", CClientScript::POS_READY);
