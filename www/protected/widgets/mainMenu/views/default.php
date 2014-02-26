@@ -94,16 +94,14 @@ else
 				array(
 					'text' => Yii::t('general', 'Submit'),
 					'class' => 'btn btn-primary',
-//					'tabindex' => -1,
 					'click' => 'js:function()
-						{
-							submitLoginForm();
-						}',
+					{
+						submitLoginForm();
+					}',
 				),
 				array(
 					'text' => Yii::t('general', 'Close'),
 					'class' => 'btn btn-default',
-//					'tabindex' => -1,
 					'click' => 'js:function()
 					{
 						$(this).dialog("close");
