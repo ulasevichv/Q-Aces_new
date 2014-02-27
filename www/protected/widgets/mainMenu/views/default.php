@@ -70,7 +70,7 @@ $user = Yii::app()->user;
 
 if (!empty(Yii::app()->user->id))
 {
-	
+	echo 'zzzz';
 }
 else
 {
