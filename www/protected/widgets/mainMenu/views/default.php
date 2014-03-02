@@ -1,11 +1,6 @@
 <?php
 
-$user = Yii::app()->user;
-
-//echo '<br/><b>$user: </b>';
-//echo '<pre>';
-//echo htmlspecialchars(print_r($user, true));
-//echo '</pre>';
+$baseUrl = Yii::app()->theme->baseUrl;
 ?>
 
 <div id="main_menu" class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -51,11 +46,10 @@ $user = Yii::app()->user;
 						'label' => '',
 						'url' => '',
 						'itemOptions' => array('id' => 'profile_menu_item'),
-//						'template' => '#{menu}#',
-						'template' => '<a><div></div></a>',
+						'template' => (empty(Yii::app()->user->id) ? '' : '<a><div></div></a>'),
 					),
 					array(
-						'label' => Yii::t('general', 'Login'),
+						'label' => (empty(Yii::app()->user->id) ? Yii::t('general', 'Login') : Yii::t('general', 'Logout')),
 						'url' => '',
 						'itemOptions' => array('id' => 'login_menu_item'),
 					),
@@ -70,7 +64,22 @@ $user = Yii::app()->user;
 
 if (!empty(Yii::app()->user->id))
 {
-	echo 'zzzz';
+	Yii::app()->clientScript->registerScript(uniqid(), "
+		
+		$('#login_menu_item').on('click', function()
+		{
+			if (!confirm('".Yii::t('general', 'Are you sure?')."')) return;
+			
+			var form = document.createElement('form');
+			form.setAttribute('action', '".Yii::app()->controller->createUrl('user/logout')."');
+			form.setAttribute('method', 'post');
+			form.setAttribute('target', '_self');
+			document.body.appendChild(form);
+			
+			form.submit();
+		});
+		
+	", CClientScript::POS_READY);
 }
 else
 {
@@ -78,13 +87,13 @@ else
 		'id' => 'doc_consent_dialog',
 		'cssFile' => null,
 		'options' => array(
-			'title' => Yii::t('general', 'Modal title'),
+			'title' => Yii::t('general', 'Login'),
 			'modal' => true,
 			'autoOpen' => false,
 			'show' => array('effect' => 'size'),
 			'hide' => array('effect' => 'size'),
 			'position' => 'top',
-			'width' => 800,
+			'width' => 350,
 			'height' => 'auto',
 			'draggable' => false,
 			'resizable' => false,
@@ -92,11 +101,11 @@ else
 			'dialogClass' => 'login_dialog',
 			'buttons' => array(
 				array(
-					'text' => Yii::t('general', 'Submit'),
+					'text' => Yii::t('general', 'Login'),
 					'class' => 'btn btn-primary',
 					'click' => 'js:function()
 					{
-						submitLoginForm();
+						ajaxValidateUserLoginForm();
 					}',
 				),
 				array(
@@ -117,6 +126,30 @@ else
 		
 		$('#login_menu_item').on('click', function()
 		{
+			loadLoginDialogHtml();
+		});
+		
+		function loadLoginDialogHtml()
+		{
+			var request = $.ajax({
+				url : '?r=user/login',
+				data : {  },
+				type : 'POST',
+				dataType : 'html',
+				cache : false,
+				timeout : 5000
+			});
+			
+			request.success(function(response, status, request)
+			{
+				openLoginDialog(response);
+			});
+			
+			request.error(requestTimedOut);
+		}
+		
+		function openLoginDialog(html)
+		{
 			var jDialog = $('#doc_consent_dialog');
 			var jDialogContent = jDialog.children().first();
 			
@@ -128,55 +161,16 @@ else
 				}
 			});
 			
-			jDialogContent.html('zzz');
+			jDialogContent.html(html);
 			
 			jDialog.parent().css({position:'absolute'}); // Overlay height bug-fix.
-			
 			jDialog.dialog('open');
-		});
+		}
 		
-		$('#test').on('click', function()
+		function requestTimedOut(request, status, error)
 		{
-//			$('#myModal').modal('show');
-//			console.log($('#myModal'));
-		});
-		
-		function submitLoginForm()
-		{
-			alert('submitLoginForm');
+			if (status == 'timeout') alert('".Yii::t('general', 'Request timed out. Please, try again')."');
 		}
 		
 	", CClientScript::POS_READY);
-	
-	?>
-	
-	<!-- Button trigger modal -->
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		Launch demo modal
-	</button>
-
-	<button id="test" class="btn btn-primary btn-lg">
-		Launch
-	</button>
-
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<?php
 }

@@ -48,29 +48,34 @@ $this->pageTitle = Yii::app()->name;
 //
 //echo '<br/><b>$result: </b>' . ($result ? 'true' : 'false') . '<br/>';
 
-$loginForm = new LoginForm();
-//$loginForm->username = 'admin@nomail.com';
+
+
+//$loginForm = new LoginForm();
+////$loginForm->username = 'admin@nomail.com';
+////$loginForm->password = '123456';
+//
+//$loginForm->username = 'h1dd3n@narod.ru';
 //$loginForm->password = '123456';
-
-$loginForm->username = 'h1dd3n@narod.ru';
-$loginForm->password = '123456';
-
-$result = $loginForm->login();
-
-echo '<br/><b>$result: </b>' . ($result ? 'true' : 'false') . '<br/>';
+//
+//$result = $loginForm->login();
+//
+//echo '<br/><b>$result: </b>' . ($result ? 'true' : 'false') . '<br/>';
 
 $user = Yii::app()->user;
 
-echo '<br/><b>$user: </b>';
-echo '<pre>';
-echo htmlspecialchars(print_r($user, true));
-echo '</pre>';
-
-echo '<br/><b>$user->id: </b>'.htmlspecialchars($user->id).'<br/>';
-
-echo '<br/><b>get_class($user): </b>'.htmlspecialchars(get_class($user)).'<br/>';
+//echo '<br/><b>$user: </b>';
+//echo '<pre>';
+//echo htmlspecialchars(print_r($user, true));
+//echo '</pre>';
+//
+//echo '<br/><b>$user->id: </b>'.htmlspecialchars($user->id).'<br/>';
+//
+//echo '<br/><b>get_class($user): </b>'.htmlspecialchars(get_class($user)).'<br/>';
 
 //$user->logout();
+
+//$this->createUrl('user/logout');
 ?>
 
 Index page
+

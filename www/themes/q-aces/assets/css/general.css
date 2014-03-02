@@ -106,3 +106,45 @@
 .login_dialog {
 	margin-top: 27px;
 }
+
+/*** Forms ***/
+
+form .alert {
+	cursor: default;
+	margin: 4px 0 0 0;
+	padding: 2px 6px;
+}
+
+/*** Login form ***/
+
+#user_login_form {
+}
+#user_login_form .input-group {
+	margin-top: 7px;
+}
+#user_login_form .input-group:nth-child(1) {
+	margin-top: 0;
+}
+#user_login_form .input-group span.glyphicon {
+	cursor: default;
+}
+#user_login_form input[type="checkbox"] {
+	float: left;
+	width: auto;
+	position: inherit;
+	margin: 4px 0 0 0;
+}
+#user_login_form label {
+	float: left;
+	font-weight: normal;
+	margin: 0 0 0 7px;
+}
+
+
+
+
+
+
+
+
+
