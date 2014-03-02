@@ -46,78 +46,60 @@
 
 /*** General ***/
 
-#main_menu {
-	margin-bottom: 15px;
-}
-
-/*** Login controls ***/
-
-/*#main_menu .navbar-collapse {*/
-	/*position: relative;*/
-/*}*/
-/*.login_button_container {*/
-	/*position: absolute;*/
-	/*z-index: 1;*/
-	/*top: 10px;*/
-	/*right: 10px;*/
-	/*color: #ff0000;*/
-/*}*/
-
-
-/*.navbar-nav li.zzz {*/
-	/*float: right;*/
-/*}*/
-
-/*#main_menu .navbar-header {*/
-	/*float: left;*/
-/*}*/
-/*#main_menu .navbar-collapse {*/
-	/*position: relative;*/
-	/*float: left;*/
-	/*width: 100%;*/
-/*}*/
-/*#main_menu .navbar-collapse ul.navbar-nav {*/
-	/*width: 100%;*/
-/*}*/
-
-#main_menu ul.login_items {
-	float: right;
-}
-#main_menu #login_menu_item {
-	cursor: pointer;
-}
-/*#main_menu #login_label {*/
-	/*cursor: pointer;*/
-/*}*/
-#main_menu #profile_menu_item a div {
-	float: left;
-	width: 100px;
-	height: 20px;
-	border: 1px dashed green;
-	margin-right: -15px;
-	cursor: default;
-}
-
-
-
-
-
-
-.login_dialog {
-	margin-top: 27px;
-}
-
-/*** Forms ***/
-
 form .alert {
 	cursor: default;
 	margin: 4px 0 0 0;
 	padding: 2px 6px;
 }
 
+/*** Main menu ***/
+
+#main_menu {
+	margin-bottom: 15px;
+}
+#main_menu ul.login_items {
+	float: right;
+}
+#main_menu #login_menu_item {
+	cursor: pointer;
+}
+#main_menu #profile_menu_item {
+	cursor: default;
+}
+#main_menu #profile_menu_item ._icon {
+	float: right;
+	color: #339933;
+	border: none;
+	background: none;
+	font-size: 18px;
+	margin: 8px 10px 0 0;
+}
+#main_menu #profile_menu_item ._email {
+	float: right;
+	color: #339933;
+	font-size: 12px;
+	margin: 16px 20px 0 0;
+}
+.login_dialog {
+	margin-top: 27px;
+}
+
 /*** Login form ***/
 
 #user_login_form {
+}
+#user_login_form input[type="submit"] {
+	display: none;
+}
+#user_login_form._not_modal {
+}
+#user_login_form._not_modal .input-group {
+	width: 280px;
+}
+#user_login_form._not_modal input[type="submit"] {
+	display: block;
+	float: right;
+	margin: 0;
 }
 #user_login_form .input-group {
 	margin-top: 7px;

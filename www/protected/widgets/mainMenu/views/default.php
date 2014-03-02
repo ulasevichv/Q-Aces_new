@@ -19,7 +19,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
 			echo $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav'),
 				'items' => array(
-					array('label' => Yii::t('general', 'Home'), 'url' => array('/site/index')),
+					array('label' => Yii::t('general', 'Home'), 'url' => array('/')),
 					array('label' => Yii::t('general', 'About'), 'url' => array('/site/page', 'view' => 'about')),
 					array('label' => Yii::t('general', 'Contact'), 'url' => array('/site/contact')),
 					array('label' => '',
@@ -39,6 +39,18 @@ $baseUrl = Yii::app()->theme->baseUrl;
 				),
 			), true);
 			
+			if (empty(Yii::app()->user->id))
+			{
+				$profileMenuItemTemplate = '';
+				$loginMenuItemLabel = Yii::t('general', 'Login');
+			}
+			else
+			{
+				$profileMenuItemTemplate = '<div class="_email">'.CHtml::encode(Yii::app()->user->email).'</div>'.
+					'<div class="_icon input-group-addon glyphicon glyphicon-user"></div>';
+				$loginMenuItemLabel = Yii::t('general', 'Logout');
+			}
+			
 			echo $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav login_items'),
 				'items' => array(
@@ -46,12 +58,13 @@ $baseUrl = Yii::app()->theme->baseUrl;
 						'label' => '',
 						'url' => '',
 						'itemOptions' => array('id' => 'profile_menu_item'),
-						'template' => (empty(Yii::app()->user->id) ? '' : '<a><div></div></a>'),
+						'template' => $profileMenuItemTemplate,
 					),
 					array(
-						'label' => (empty(Yii::app()->user->id) ? Yii::t('general', 'Login') : Yii::t('general', 'Logout')),
+						'label' => $loginMenuItemLabel,
 						'url' => '',
 						'itemOptions' => array('id' => 'login_menu_item'),
+						'template' => '{menu}',
 					),
 				),
 			), true);
@@ -68,7 +81,7 @@ if (!empty(Yii::app()->user->id))
 		
 		$('#login_menu_item').on('click', function()
 		{
-			if (!confirm('".Yii::t('general', 'Are you sure?')."')) return;
+			if (!confirm('".Yii::t('general', 'Are you sure you want to logout?')."')) return;
 			
 			var form = document.createElement('form');
 			form.setAttribute('action', '".Yii::app()->controller->createUrl('user/logout')."');
@@ -83,6 +96,20 @@ if (!empty(Yii::app()->user->id))
 }
 else
 {
+	if (Yii::app()->urlManager->parseUrl(Yii::app()->request) == Yii::app()->user->loginUrl)
+	{
+		Yii::app()->clientScript->registerScript(uniqid(), "
+			
+			$('#login_menu_item').on('click', function()
+			{
+				alert('".Yii::t('general', 'Login form is already displayed')."');
+			});
+			
+		", CClientScript::POS_READY);
+		
+		return;
+	}
+	
 	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'id' => 'doc_consent_dialog',
 		'cssFile' => null,

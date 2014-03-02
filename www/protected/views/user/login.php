@@ -1,4 +1,11 @@
 <?php
+
+if (!empty(Yii::app()->user->id))
+{
+	echo Yii::t('general', 'Already logged in');
+	return;
+}
+
 $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'user_login_form',
 	'enableClientValidation' => true,
@@ -8,7 +15,7 @@ $form = $this->beginWidget('CActiveForm', array(
 		'validateOnSubmit' => true,
 	),
 	'htmlOptions' => array(
-		'autocomplete' => 'off',
+		'class' => (Yii::app()->request->isAjaxRequest ? '' : '_not_modal'),
 		'onsubmit' => "ajaxValidateUserLoginForm(); return false;",
 	),
 ));
@@ -16,12 +23,12 @@ $form = $this->beginWidget('CActiveForm', array(
 	
 	<div class="input-group">
 		<span class="input-group-addon glyphicon glyphicon-user"></span>
-		<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'), 'value' => 'admin@q-aces.com')); ?>
+		<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'), 'value' => '')); ?>
 	</div>
 	
 	<div class="input-group">
 		<span class="input-group-addon glyphicon glyphicon-lock"></span>
-		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'), 'value' => '123456')); ?>
+		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'), 'value' => '')); ?>
 	</div>
 	
 	<div class="input-group">
@@ -29,10 +36,15 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php echo $form->label($model, 'rememberMe'); ?>
 	</div>
 	
-	<div id="<?php echo $form->id.'_error'; ?>" class="alert alert-danger" style="display:none;">
+	<div class="input-group">
+		<div id="<?php echo $form->id.'_error'; ?>" class="alert alert-danger" style="display:none;"></div>
 	</div>
 	
-	<input type="submit" style="display:none;" />
+	<div class="input-group">
+		<?php
+		echo CHtml::submitButton(Yii::t('general', 'Login'), array('class' => 'btn btn-primary'));
+		?>
+	</div>
 	
 <?php $this->endWidget(); ?>
 
@@ -53,7 +65,7 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 			
 			var request = $.ajax({
 				url : '?r=user/loginValidate',
-				data : $('#user_login_form').serialize(),
+				data : $('#".$form->id."').serialize(),
 				type : 'POST',
 				dataType : 'json',
 				cache : false,
