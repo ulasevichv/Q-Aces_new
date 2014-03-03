@@ -39,34 +39,59 @@ $baseUrl = Yii::app()->theme->baseUrl;
 				),
 			), true);
 			
+			// Login/register section.
+			
 			if (empty(Yii::app()->user->id))
 			{
-				$profileMenuItemTemplate = '';
-				$loginMenuItemLabel = Yii::t('general', 'Login');
-			}
-			else
-			{
-				$profileMenuItemTemplate = '<div class="_email">'.CHtml::encode(Yii::app()->user->email).'</div>'.
-					'<div class="_icon input-group-addon glyphicon glyphicon-user"></div>';
-				$loginMenuItemLabel = Yii::t('general', 'Logout');
-			}
-			
-			echo $this->widget('zii.widgets.CMenu', array(
-				'htmlOptions' => array('class' => 'nav navbar-nav login_items'),
-				'items' => array(
+				$items = array(
 					array(
 						'label' => '',
 						'url' => '',
 						'itemOptions' => array('id' => 'profile_menu_item'),
-						'template' => $profileMenuItemTemplate,
+						'template' => Yii::t('general', 'Login'),
 					),
 					array(
-						'label' => $loginMenuItemLabel,
+						'label' => Yii::t('general', 'Login'),
 						'url' => '',
 						'itemOptions' => array('id' => 'login_menu_item'),
 						'template' => '{menu}',
 					),
-				),
+					array(
+						'label' => '/',
+						'url' => '',
+						'itemOptions' => array('class' => 'separator_menu_item'),
+						'template' => '{menu}',
+					),
+					array(
+						'label' => Yii::t('general', 'Register'),
+						'url' => array('/user/register'),
+						'itemOptions' => array('id' => 'register_menu_item'),
+						'template' => '{menu}',
+					),
+				);
+			}
+			else
+			{
+				$items = array(
+					array(
+						'label' => '',
+						'url' => '',
+						'itemOptions' => array('id' => 'profile_menu_item'),
+						'template' => '<div class="_email">'.CHtml::encode(Yii::app()->user->email).'</div>'.
+							'<div class="_icon input-group-addon glyphicon glyphicon-user"></div>',
+					),
+					array(
+						'label' => Yii::t('general', 'Logout'),
+						'url' => '',
+						'itemOptions' => array('id' => 'login_menu_item'),
+						'template' => '{menu}',
+					),
+				);
+			}
+			
+			echo $this->widget('zii.widgets.CMenu', array(
+				'htmlOptions' => array('class' => 'nav navbar-nav login_items'),
+				'items' => $items,
 			), true);
 			?>
 		</div>
@@ -96,6 +121,17 @@ if (!empty(Yii::app()->user->id))
 }
 else
 {
+//	Yii::app()->clientScript->registerScript(uniqid(), "
+//		
+//		$('#register_menu_item').on('click', function()
+//		{
+//			alert('register');
+//		});
+//		
+//	", CClientScript::POS_READY);
+	
+	// Preventing login form dialog for login view.
+	
 	if (Yii::app()->urlManager->parseUrl(Yii::app()->request) == Yii::app()->user->loginUrl)
 	{
 		Yii::app()->clientScript->registerScript(uniqid(), "

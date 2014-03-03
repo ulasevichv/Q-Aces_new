@@ -59,6 +59,15 @@ form .alert {
 }
 #main_menu ul.login_items {
 	float: right;
+	
+}
+#main_menu ul.login_items li.active > a {
+	color: #999999;
+	background: none;
+	box-shadow: none;
+}
+#main_menu ul.login_items li.active > a:hover {
+	color: #ffffff;
 }
 #main_menu #login_menu_item {
 	cursor: pointer;
@@ -80,12 +89,22 @@ form .alert {
 	font-size: 12px;
 	margin: 16px 20px 0 0;
 }
+#main_menu .separator_menu_item a {
+	padding: 15px 0;
+	cursor: default;
+}
+#main_menu .separator_menu_item a:hover {
+	color: #999999;
+}
+#main_menu #register_menu_item {
+	cursor: pointer;
+}
+
+/*** Login ***/
+
 .login_dialog {
 	margin-top: 27px;
 }
-
-/*** Login form ***/
-
 #user_login_form {
 }
 #user_login_form input[type="submit"] {
