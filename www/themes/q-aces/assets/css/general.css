@@ -72,6 +72,11 @@ form .input-group:nth-child(1) {
 form label {
 	margin: 7px 0 0 0;
 }
+form .input-group input.form-control {
+	border-top-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+
 /*** Main menu ***/
 
 #main_menu {
