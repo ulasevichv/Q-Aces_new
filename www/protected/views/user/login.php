@@ -6,6 +6,11 @@ if (!empty(Yii::app()->user->id))
 	return;
 }
 
+if (!Yii::app()->request->isAjaxRequest)
+{
+	echo '<h1>'.Yii::t('general', 'Login').'</h1>';
+}
+
 $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'user_login_form',
 	'enableClientValidation' => false,

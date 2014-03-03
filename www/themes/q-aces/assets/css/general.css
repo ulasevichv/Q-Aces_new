@@ -46,16 +46,36 @@
 
 /*** General ***/
 
+
+.container[role="main"] {
+	margin-top: 10px;
+}
+.container[role="main"] > h1,h2,h3,h4,h5,h6:nth-child(1) {
+	margin-top: 5px;
+}
+
+/*** Forms ***/
+
 form .alert {
 	cursor: default;
 	margin: 4px 0 0 0;
 	padding: 2px 6px;
 }
-
+form .input-group {
+	float: left;
+	clear: both;
+	margin-top: 7px;
+}
+form .input-group:nth-child(1) {
+	margin-top: 0;
+}
+form label {
+	margin: 7px 0 0 0;
+}
 /*** Main menu ***/
 
 #main_menu {
-	margin-bottom: 15px;
+	margin-bottom: 0;
 }
 #main_menu ul.login_items {
 	float: right;
@@ -120,12 +140,6 @@ form .alert {
 	float: right;
 	margin: 0;
 }
-#user_login_form .input-group {
-	margin-top: 7px;
-}
-#user_login_form .input-group:nth-child(1) {
-	margin-top: 0;
-}
 #user_login_form .input-group span.glyphicon {
 	cursor: default;
 }
@@ -141,10 +155,19 @@ form .alert {
 	margin: 0 0 0 7px;
 }
 
+/*** Register ***/
 
-
-
-
+#user_register_form {
+}
+#user_register_form label {
+	float: left;
+	min-width: 120px;
+}
+#user_register_form input[type="text"],
+#user_register_form input[type="password"] {
+	float: left;
+	width: 250px;
+}
 
 
 

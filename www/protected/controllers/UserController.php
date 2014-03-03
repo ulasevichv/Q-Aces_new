@@ -49,7 +49,7 @@ class UserController extends Controller
 	
 	public function actionRegister()
 	{
-		$model = null;
+		$model = new RegisterForm();
 		
 		$this->render('register', array('model' => $model));
 	}
