@@ -4,6 +4,31 @@ class UserIdentity extends CUserIdentity
 {
 	private $_id;
 	
+	public static function getPasswordFullHash($plainPassword)
+	{
+		$salt = MethodsForStrings::GenerateRandomString(16);
+		
+		$hash = md5($plainPassword.$salt);
+		
+		$hash = $hash.':'.$salt;
+		
+		return $hash;
+	}
+	
+	public static function validatePassword($plainPassword, $fullHash)
+	{
+		usleep(250 * 1000);
+		
+		$parts = explode(':', $fullHash);
+		
+		$hash = $parts[0];
+		$salt = $parts[1];
+		
+		$newHash = md5($plainPassword.$salt);
+		
+		return ($newHash == $hash);
+	}
+	
 	public function authenticate()
 	{
 		$error = '';
@@ -16,7 +41,7 @@ class UserIdentity extends CUserIdentity
 		{
 			$row = (object) $userAR->attributes;
 			
-			if ($row->password != $this->password) $error = self::ERROR_PASSWORD_INVALID;
+			if (!self::validatePassword($this->password, $row->password)) $error = self::ERROR_PASSWORD_INVALID;
 		}
 		
 		if ($error == '')
