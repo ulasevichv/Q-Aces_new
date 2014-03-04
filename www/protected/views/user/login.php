@@ -25,33 +25,35 @@ $form = $this->beginWidget('CActiveForm', array(
 	),
 ));
 ?>
-	
-	<div class="input-group">
-		<span class="input-group-addon glyphicon glyphicon-user"></span>
-		<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'), 'value' => '')); ?>
+	<div class="_row">
+		<div class="input-group">
+			<span class="input-group-addon glyphicon glyphicon-user"></span>
+			<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'), 'value' => '')); ?>
+		</div>
 	</div>
 	
-	<div class="input-group">
-		<span class="input-group-addon glyphicon glyphicon-lock"></span>
-		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'), 'value' => '')); ?>
+	<div class="_row">
+		<div class="input-group">
+			<span class="input-group-addon glyphicon glyphicon-lock"></span>
+			<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'), 'value' => '')); ?>
+		</div>
 	</div>
 	
-	<div class="input-group">
-		<?php echo $form->checkBox($model, 'rememberMe', array('value' => 1, 'checked' => 'checked')); ?>
-		<?php echo $form->label($model, 'rememberMe'); ?>
+	<div class="_row">
+		<div class="input-group">
+			<?php echo $form->checkBox($model, 'rememberMe', array('value' => 1, 'checked' => 'checked')); ?>
+			<?php echo $form->label($model, 'rememberMe'); ?>
+		</div>
 	</div>
 	
-	<div class="input-group">
-		<div id="<?php echo $form->id.'_error'; ?>" class="alert alert-danger" style="display:none;"></div>
-	</div>
+	<div class="alert alert-danger"></div>
 	
-	<div class="input-group">
-		<?php
-		echo CHtml::submitButton(Yii::t('general', 'Login'), array('class' => 'btn btn-primary'));
-		?>
+	<div class="_row _submit">
+		<?php echo CHtml::submitButton(Yii::t('general', 'Login'), array('class' => 'btn btn-primary')); ?>
 	</div>
-	
-<?php $this->endWidget(); ?>
+<?php
+$this->endWidget();
+?>
 
 <?php
 Yii::app()->clientScript->registerScript(uniqid(), "
@@ -64,7 +66,7 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 		{
 			$('#".$form->id." .input-group').removeClass('has-error');
 			
-			var jFormErrorDiv = $('#".$form->id."_error');
+			var jFormErrorDiv = $('#".$form->id." .alert');
 			
 			jFormErrorDiv.css('display', 'none');
 			
