@@ -20,30 +20,30 @@ $form = $this->beginWidget('CActiveForm', array(
 		'validateOnSubmit' => true,
 	),
 	'htmlOptions' => array(
+		'autocomplete' => 'on',
 		'class' => (Yii::app()->request->isAjaxRequest ? '' : '_not_modal'),
 		'onsubmit' => "ajaxValidateUserLoginForm(); return false;",
 	),
 ));
 ?>
+	
 	<div class="_row">
 		<div class="input-group">
 			<span class="input-group-addon glyphicon glyphicon-user"></span>
-			<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'), 'value' => '')); ?>
+			<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('email'))); ?>
 		</div>
 	</div>
 	
 	<div class="_row">
 		<div class="input-group">
 			<span class="input-group-addon glyphicon glyphicon-lock"></span>
-			<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'), 'value' => '')); ?>
+			<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('password'))); ?>
 		</div>
 	</div>
 	
 	<div class="_row">
-		<div class="input-group">
-			<?php echo $form->checkBox($model, 'rememberMe', array('value' => 1, 'checked' => 'checked')); ?>
-			<?php echo $form->label($model, 'rememberMe'); ?>
-		</div>
+		<?php echo $form->checkBox($model, 'rememberMe', array('value' => 1, 'checked' => 'checked')); ?>
+		<?php echo $form->label($model, 'rememberMe'); ?>
 	</div>
 	
 	<div class="alert alert-danger"></div>
@@ -51,9 +51,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="_row _submit">
 		<?php echo CHtml::submitButton(Yii::t('general', 'Login'), array('class' => 'btn btn-primary')); ?>
 	</div>
-<?php
-$this->endWidget();
-?>
+	
+<?php $this->endWidget(); ?>
 
 <?php
 Yii::app()->clientScript->registerScript(uniqid(), "
@@ -64,10 +63,9 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 		
 		function ajaxValidateUserLoginForm()
 		{
-			$('#".$form->id." .input-group').removeClass('has-error');
+			$('#".$form->id." > ._row').removeClass('has-error');
 			
 			var jFormErrorDiv = $('#".$form->id." .alert');
-			
 			jFormErrorDiv.css('display', 'none');
 			
 			var request = $.ajax({
@@ -85,9 +83,9 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 				
 				if (errors.length > 0)
 				{
-					var jInputGroup = $('#'+String(errors[0].id)).parents('.input-group');
+					var jFormRow = $('#'+String(errors[0].id)).parents('._row');
 					
-					jInputGroup.addClass('has-error');
+					jFormRow.addClass('has-error');
 					
 					jFormErrorDiv.html(errors[0].msg);
 					jFormErrorDiv.css('display', 'block');
@@ -98,24 +96,7 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 				$('#".$form->id."').submit();
 			});
 			
-			request.error(requestTimedOut);
-		}
-		
-		function ajaxFormValidationJsonToArray(json)
-		{
-			var arr = new Array();
-			
-			for (var property in json)
-			{
-				arr.push({ id : property, msg : json[property] });
-			}
-			
-			return arr;
-		}
-		
-		function requestTimedOut(request, status, error)
-		{
-			if (status == 'timeout') alert('".Yii::t('general', 'Request timed out. Please, try again')."');
+			request.error(requestTimedOutDefault);
 		}
 	}
 	

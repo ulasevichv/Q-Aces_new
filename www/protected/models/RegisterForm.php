@@ -6,23 +6,31 @@ class RegisterForm extends CFormModel
 	public $lastName;
 	public $email;
 	public $password;
+	public $passwordRepeat;
+	public $verifyCode;
 	
 	public function rules()
 	{
 		return array(
-			array('firstName, lastName, email, password', 'required'),
+			array('firstName, lastName, email, password, passwordRepeat, verifyCode', 'required'),
+			array('firstName, lastName', 'match', 'pattern' => '/^[[:alpha:]\- ]+$/u', 'message' => Yii::t('general', '{attribute} contains forbidden characters.')),
 			array('email', 'email'),
-//			array('password', 'authenticate'),
+			array('email', 'unique', 'className' => 'User', 'attributeName' => 'email', 'caseSensitive' => false, 'message' => Yii::t('general', 'Specified {attribute} is already registered.')),
+			array('password', 'length', 'min' => 3),
+			array('passwordRepeat', 'compare', 'compareAttribute' => 'password'),
+			array('verifyCode', 'captcha'),
 		);
 	}
-
+	
 	public function attributeLabels()
 	{
 		return array(
-			'firstName' => Yii::t('general', 'First Name'),
-			'lastName' => Yii::t('general', 'Last Name'),
+			'firstName' => Yii::t('general', 'First name'),
+			'lastName' => Yii::t('general', 'Last name'),
 			'email' => Yii::t('general', 'Email'),
 			'password' => Yii::t('general', 'Password'),
+			'passwordRepeat' => Yii::t('general', 'Repeat password'),
+			'verifyCode' => Yii::t('general', 'Verification code'),
 		);
 	}
 }

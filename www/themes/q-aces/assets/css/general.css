@@ -53,6 +53,9 @@
 .container[role="main"] > h1,h2,h3,h4,h5,h6:nth-child(1) {
 	margin-top: 5px;
 }
+.container > .alert {
+	margin-bottom: 10px;
+}
 
 /*** Forms ***/
 
@@ -171,7 +174,7 @@ form .input-group span.glyphicon {
 }
 #user_register_form > ._row,
 #user_register_form > .alert {
-	width: 390px;
+	width: 400px;
 }
 #user_register_form label {
 	float: left;
@@ -182,11 +185,36 @@ form .input-group span.glyphicon {
 	float: right;
 	width: 250px;
 }
+#user_register_form ._captcha {
+	float: right;
+	width: 250px;
+	margin: 0;
+}
+#user_register_form ._captcha > ._controls {
+	float: left;
+}
+#user_register_form ._captcha > ._controls > img {
+	float: left;
+	border: 1px dotted #dddddd;
+	border-radius: 4px;
+}
+#user_register_form ._captcha > ._controls > a {
+	float: left;
+	clear: both;
+	font-size: 10px;
+	text-decoration: none;
+}
+#user_register_form ._captcha > ._input {
+	float: right;
+}
+#user_register_form ._captcha > ._input input[type="text"] {
+	float: right;
+	width: 120px;
+	margin: 9px 0 0 0;
+}
 #user_register_form input[type="submit"] {
 	float: right;
 	margin: 0;
 }
-
-
 
 

@@ -29,7 +29,50 @@ $cs->scriptMap = array(
 			), true);
 		?>
 		<div class="container theme-showcase" role="main">
-			<?php echo $content; ?>
+			<?php
+			// Flash-messages.
+			$flashMessages = Yii::app()->user->getFlashes();
+			if ($flashMessages && count($flashMessages) > 0)
+			{
+				foreach ($flashMessages as $key => $message)
+				{
+					$bootstrapAlertClass = '';
+					
+					switch ($key)
+					{
+						case 'success': $bootstrapAlertClass = 'success'; break;
+						case 'notice': $bootstrapAlertClass = 'warning'; break;
+						case 'info' : $bootstrapAlertClass = 'info'; break; // Not present in Yii by default.
+						case 'error': default: $bootstrapAlertClass = 'danger'; break;
+					}
+					
+					echo '<div class="alert alert-'.$bootstrapAlertClass.'">'.$message.'</div>';
+				}
+			}
+			// Content.
+			echo $content;
+			?>
 		</div>
 	</body>
 </html>
+<?php
+Yii::app()->clientScript->registerScript(uniqid(), "
+	
+	function requestTimedOutDefault(request, status, error)
+	{
+		if (status == 'timeout') alert('".Yii::t('general', 'Request timed out. Please, try again')."');
+	}
+	
+	function ajaxFormValidationJsonToArray(json)
+	{
+		var arr = new Array();
+		
+		for (var property in json)
+		{
+			arr.push({ id : property, msg : json[property] });
+		}
+		
+		return arr;
+	}
+	
+", CClientScript::POS_HEAD);

@@ -34,6 +34,11 @@ class SiteController extends Controller
 		}
 	}
 	
+	public function actionMsg()
+	{
+		$this->render('msg');
+	}
+	
 	public function actionContact()
 	{
 		$model=new ContactForm;
