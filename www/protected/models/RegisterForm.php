@@ -12,14 +12,13 @@ class RegisterForm extends CFormModel
 	public function rules()
 	{
 		return array(
-//			array('firstName, lastName, email, password, passwordRepeat, verifyCode', 'required'),
-			array('firstName, lastName, email, password, passwordRepeat', 'required'),
+			array('firstName, lastName, email, password, passwordRepeat, verifyCode', 'required'),
 			array('firstName, lastName', 'match', 'pattern' => '/^[[:alpha:]\- ]+$/u', 'message' => Yii::t('general', '{attribute} contains forbidden characters.')),
 			array('email', 'email'),
 			array('email', 'unique', 'className' => 'User', 'attributeName' => 'email', 'caseSensitive' => false, 'message' => Yii::t('general', 'Specified {attribute} is already registered.')),
 			array('password', 'length', 'min' => 3),
 			array('passwordRepeat', 'compare', 'compareAttribute' => 'password'),
-//			array('verifyCode', 'application.components.CaptchaValidator'),
+			array('verifyCode', 'application.components.CaptchaValidator'),
 		);
 	}
 	
