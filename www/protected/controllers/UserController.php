@@ -6,8 +6,11 @@ class UserController extends Controller
 	{
 		return array(
 			'captcha' => array(
-				'class' => 'CCaptchaAction',
-				'backColor' => 0xFFFFFF,
+				'class' => 'application.components.CaptchaAction',
+				'backColor' => 0xffffff,
+				'foreColor' => 0x009900,
+				'offset' => 1,
+				'testLimit' => 3,
 			),
 		);
 	}

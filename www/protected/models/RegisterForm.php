@@ -18,7 +18,7 @@ class RegisterForm extends CFormModel
 			array('email', 'unique', 'className' => 'User', 'attributeName' => 'email', 'caseSensitive' => false, 'message' => Yii::t('general', 'Specified {attribute} is already registered.')),
 			array('password', 'length', 'min' => 3),
 			array('passwordRepeat', 'compare', 'compareAttribute' => 'password'),
-			array('verifyCode', 'captcha'),
+			array('verifyCode', 'application.components.CaptchaValidator'),
 		);
 	}
 	

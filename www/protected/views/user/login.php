@@ -15,7 +15,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'user_login_form',
 	'enableClientValidation' => false,
 	'enableAjaxValidation' => true,
-	'action' => $this->createUrl('user/loginPerform'),
+	'action' => $this->createUrl('user/login'),
 	'clientOptions' => array(
 		'validateOnSubmit' => true,
 	),
