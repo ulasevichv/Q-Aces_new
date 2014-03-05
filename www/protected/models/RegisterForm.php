@@ -12,13 +12,14 @@ class RegisterForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('firstName, lastName, email, password, passwordRepeat, verifyCode', 'required'),
+//			array('firstName, lastName, email, password, passwordRepeat, verifyCode', 'required'),
+			array('firstName, lastName, email, password, passwordRepeat', 'required'),
 			array('firstName, lastName', 'match', 'pattern' => '/^[[:alpha:]\- ]+$/u', 'message' => Yii::t('general', '{attribute} contains forbidden characters.')),
 			array('email', 'email'),
 			array('email', 'unique', 'className' => 'User', 'attributeName' => 'email', 'caseSensitive' => false, 'message' => Yii::t('general', 'Specified {attribute} is already registered.')),
 			array('password', 'length', 'min' => 3),
 			array('passwordRepeat', 'compare', 'compareAttribute' => 'password'),
-			array('verifyCode', 'application.components.CaptchaValidator'),
+//			array('verifyCode', 'application.components.CaptchaValidator'),
 		);
 	}
 	
@@ -32,5 +33,18 @@ class RegisterForm extends CFormModel
 			'passwordRepeat' => Yii::t('general', 'Repeat password'),
 			'verifyCode' => Yii::t('general', 'Verification code'),
 		);
+	}
+	
+	public function createNewUser()
+	{
+		$userModel = User::model();
+		
+		$userModel->setAttributes($this->attributes, false);
+		$userModel->setIsNewRecord(true);
+		$userModel->save();
+		
+		if ($userModel->hasErrors()) return Helper::modelErrorToString($userModel);
+		
+		return '';
 	}
 }

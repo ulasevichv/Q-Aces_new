@@ -2,13 +2,15 @@
 
 class Helper
 {
-	public static function modelErrorsToMessage($model)
+	public static function modelErrorToString(CModel $model)
 	{
 		$msg = '';
 		
-		if (!empty($model->errors) && is_array($model->errors) && count($model->errors) > 0)
+		if ($model->hasErrors())
 		{
-			foreach ($model->errors as $key => $value)
+			$errors = $model->getErrors();
+			
+			foreach ($errors as $key => $value)
 			{
 				$msg = $key.' - '.$value[0];
 				break;

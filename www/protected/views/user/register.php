@@ -21,27 +21,32 @@ $form = $this->beginWidget('CActiveForm', array(
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'firstName'); ?>
-		<?php echo $form->textField($model, 'firstName', array('class' => 'form-control', 'value' => 'Victor')); ?>
+<!--		--><?php //echo $form->textField($model, 'firstName', array('class' => 'form-control', 'value' => 'Victor')); ?>
+		<?php echo $form->textField($model, 'firstName', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'lastName'); ?>
-		<?php echo $form->textField($model, 'lastName', array('class' => 'form-control', 'value' => 'Ulasevich')); ?>
+<!--		--><?php //echo $form->textField($model, 'lastName', array('class' => 'form-control', 'value' => 'Ulasevich')); ?>
+		<?php echo $form->textField($model, 'lastName', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'email'); ?>
-		<?php echo $form->textField($model, 'email', array('class' => 'form-control', 'value' => 'test@q-aces.com')); ?>
+<!--		--><?php //echo $form->textField($model, 'email', array('class' => 'form-control', 'value' => 'test@q-aces.com')); ?>
+		<?php echo $form->textField($model, 'email', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'password'); ?>
-		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'value' => '123456')); ?>
+<!--		--><?php //echo $form->passwordField($model, 'password', array('class' => 'form-control', 'value' => '123456')); ?>
+		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'passwordRepeat'); ?>
-		<?php echo $form->passwordField($model, 'passwordRepeat', array('class' => 'form-control', 'value' => '123456')); ?>
+<!--		--><?php //echo $form->passwordField($model, 'passwordRepeat', array('class' => 'form-control', 'value' => '123456')); ?>
+		<?php echo $form->passwordField($model, 'passwordRepeat', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">

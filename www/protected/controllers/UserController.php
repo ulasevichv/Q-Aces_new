@@ -35,7 +35,7 @@ class UserController extends Controller
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', Helper::modelErrorsToMessage($model));
+				Yii::app()->user->setFlash('error', Helper::modelErrorToString($model));
 			}
 		}
 		
@@ -70,12 +70,32 @@ class UserController extends Controller
 			
 			if ($model->validate())
 			{
-				Yii::app()->user->setFlash('success', Yii::t('general', 'Thank you for registration. Use your credentials to login.'));
-				$this->redirect(array('/site/msg'));
+				$error = $model->createNewUser();
+				
+				if ($error == '')
+				{
+					// Sending email.
+
+					$email = new Email();
+
+					$email->to = $model->email;
+					$email->subject = 'Q-aces registration';
+
+					$email->sendFromTemplate('registration', array('model' => $model));
+					
+					// Redirecting.
+					
+					Yii::app()->user->setFlash('success', Yii::t('general', 'Thank you for registration. Check your email or just login, using provided credentials.'));
+					$this->redirect(array('/site/msg'));
+				}
+				else
+				{
+					Yii::app()->user->setFlash('error', $error);
+				}
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', Helper::modelErrorsToMessage($model));
+				Yii::app()->user->setFlash('error', Helper::modelErrorToString($model));
 			}
 		}
 		

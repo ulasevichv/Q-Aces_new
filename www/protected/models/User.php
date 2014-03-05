@@ -22,4 +22,14 @@ class User extends CActiveRecord
 			'password' => Yii::t('general', 'Password'),
 		);
 	}
+	
+	protected function beforeSave()
+	{
+		if ($this->isNewRecord)
+		{
+			$this->setAttribute('password', UserIdentity::getPasswordFullHash($this->getAttribute('password')));
+		}
+		
+		return parent::beforeSave();
+	}
 }

@@ -57,7 +57,7 @@ class CConsoleApplication extends CApplication
 	 * <pre>
 	 * array(
 	 *   'email'=>array(
-	 *      'class'=>'path.to.Mailer',
+	 *      'class'=>'path.to.Email',
 	 *      'interval'=>3600,
 	 *   ),
 	 *   'log'=>'path/to/LoggerCommand.php',

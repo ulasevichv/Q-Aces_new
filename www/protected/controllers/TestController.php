@@ -28,4 +28,41 @@ class TestController extends Controller
 		
 		Yii::app()->end();
 	}
+	
+	public function actionPreviewEmail()
+	{
+		$model = new RegisterForm();
+		
+		$model->setAttributes(array(
+			'firstName' => 'FIRSTNAME',
+			'lastName' => 'LASTNAME',
+			'email' => 'h1dd3n@narod.ru',
+			'password' => '123456',
+		), false);
+		
+		$templateName = 'registration';
+		
+		$templateData = array(
+			'model' => $model,
+		);
+		
+		echo Yii::app()->controller->renderPartial('//email/'.$templateName, $templateData, true);
+		
+		if (true)
+		{
+			echo '<div style="float:left; clear:both; margin-top:50px;">=== SENDING EMAIL ===';
+			
+			$email = new Email();
+			
+			$email->to = 'h1dd3n@narod.ru';
+			$email->subject = 'Q-aces registration';
+			
+			$result = $email->sendFromTemplate($templateName, $templateData);
+
+			echo '<br/><b>$result: </b>' . ($result ? 'true' : 'false');
+			echo '</div>';
+		}
+		
+		Yii::app()->end();
+	}
 }
