@@ -21,31 +21,26 @@ $form = $this->beginWidget('CActiveForm', array(
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'firstName'); ?>
-<!--		--><?php //echo $form->textField($model, 'firstName', array('class' => 'form-control', 'value' => 'Victor')); ?>
 		<?php echo $form->textField($model, 'firstName', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'lastName'); ?>
-<!--		--><?php //echo $form->textField($model, 'lastName', array('class' => 'form-control', 'value' => 'Ulasevich')); ?>
 		<?php echo $form->textField($model, 'lastName', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'email'); ?>
-<!--		--><?php //echo $form->textField($model, 'email', array('class' => 'form-control', 'value' => 'test@q-aces.com')); ?>
 		<?php echo $form->textField($model, 'email', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'password'); ?>
-<!--		--><?php //echo $form->passwordField($model, 'password', array('class' => 'form-control', 'value' => '123456')); ?>
 		<?php echo $form->passwordField($model, 'password', array('class' => 'form-control')); ?>
 	</div>
 	
 	<div class="_row">
 		<?php echo $form->labelEx($model, 'passwordRepeat'); ?>
-<!--		--><?php //echo $form->passwordField($model, 'passwordRepeat', array('class' => 'form-control', 'value' => '123456')); ?>
 		<?php echo $form->passwordField($model, 'passwordRepeat', array('class' => 'form-control')); ?>
 	</div>
 	
@@ -53,7 +48,13 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php echo $form->labelEx($model, 'verifyCode'); ?>
 		<div class="_captcha">
 			<div class="_controls">
-				<?php $this->widget('CCaptcha'); ?>
+				<?php
+				echo $this->widget('system.web.widgets.captcha.CCaptcha', array(
+					'buttonOptions' => array(
+						'tabindex' => -1,
+					),
+				), true);
+				?>
 			</div>
 			<div class="_input">
 				<?php echo $form->textField($model, 'verifyCode', array('class' => 'form-control')); ?>

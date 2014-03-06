@@ -25,8 +25,8 @@ $cs->scriptMap = array(
 	</head>
 	<body>
 		<?php
-			echo $this->widget('application.widgets.mainMenu.mainMenu', array(
-			), true);
+		echo $this->widget('application.widgets.mainMenu.mainMenu', array(
+		), true);
 		?>
 		<div class="container theme-showcase" role="main">
 			<?php
