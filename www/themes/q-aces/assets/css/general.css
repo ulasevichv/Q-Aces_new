@@ -90,9 +90,15 @@ form .input-group span.glyphicon {
 #main_menu {
 	margin-bottom: 0;
 }
+.navbar-inverse .navbar-brand.navbar_brand_static {
+	cursor: default;
+	color: #669900;
+}
+.navbar-inverse .navbar-brand.navbar_brand_static:hover {
+	color: #669900;
+}
 #main_menu ul.login_items {
 	float: right;
-	
 }
 #main_menu ul.login_items li.active > a {
 	color: #999999;

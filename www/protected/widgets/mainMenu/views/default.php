@@ -12,7 +12,8 @@ $baseUrl = Yii::app()->theme->baseUrl;
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+<!--			<a class="navbar-brand" href="/">--><?php //echo CHtml::encode(Yii::app()->name); ?><!--</a>-->
+			<span class="navbar-brand navbar_brand_static"><?php echo CHtml::encode(Yii::app()->name); ?></span>
 		</div>
 		<div class="navbar-collapse collapse">
 			<?php
@@ -20,22 +21,25 @@ $baseUrl = Yii::app()->theme->baseUrl;
 				'htmlOptions' => array('class' => 'nav navbar-nav'),
 				'items' => array(
 					array('label' => Yii::t('general', 'Home'), 'url' => array('/')),
-					array('label' => Yii::t('general', 'About'), 'url' => array('/site/page', 'view' => 'about')),
-					array('label' => Yii::t('general', 'Contact'), 'url' => array('/site/contact')),
-					array('label' => '',
-						'template' => '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.Yii::t('general', 'Dropdown').'<b class="caret"></b></a>',
-						'itemOptions' => array('class' => 'dropdown'),
-						'submenuOptions' => array('class' => 'dropdown-menu'),
-						'items' => array(
-							array('label' => Yii::t('general', 'Action'), 'url' => '#'),
-							array('label' => Yii::t('general', 'Another action'), 'url' => '#'),
-							array('label' => Yii::t('general', 'Something else here'), 'url' => '#'),
-							array('template' => '', 'itemOptions' => array('class' => 'divider')),
-							array('label' => Yii::t('general', 'Nav header'), 'itemOptions' => array('class' => 'dropdown-header')),
-							array('label' => Yii::t('general', 'Separated link'), 'url' => '#'),
-							array('label' => Yii::t('general', 'One more separated link'), 'url' => '#'),
-						),
-					),
+					array('label' => Yii::t('general', 'Bootstrap demo'), 'url' => array('/site/demoBootstrap')),
+					array('label' => Yii::t('general', 'Marketing demo'), 'url' => array('/site/demoMarketing')),
+					array('label' => Yii::t('general', 'Chart demo'), 'url' => array('/site/demoChart')),
+//					array('label' => Yii::t('general', 'About'), 'url' => array('/site/page', 'view' => 'about')),
+//					array('label' => Yii::t('general', 'Contact'), 'url' => array('/site/contact')),
+//					array('label' => '',
+//						'template' => '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.Yii::t('general', 'Test: Dropdown').'<b class="caret"></b></a>',
+//						'itemOptions' => array('class' => 'dropdown'),
+//						'submenuOptions' => array('class' => 'dropdown-menu'),
+//						'items' => array(
+//							array('label' => Yii::t('general', 'Test: Action'), 'url' => '#'),
+//							array('label' => Yii::t('general', 'Test: Another action'), 'url' => '#'),
+//							array('label' => Yii::t('general', 'Test: Something else here'), 'url' => '#'),
+//							array('template' => '', 'itemOptions' => array('class' => 'divider')),
+//							array('label' => Yii::t('general', 'Test: Nav header'), 'itemOptions' => array('class' => 'dropdown-header')),
+//							array('label' => Yii::t('general', 'Test: Separated link'), 'url' => '#'),
+//							array('label' => Yii::t('general', 'Test: One more separated link'), 'url' => '#'),
+//						),
+//					),
 				),
 			), true);
 			

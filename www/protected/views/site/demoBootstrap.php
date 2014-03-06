@@ -1,60 +1,39 @@
 <?php
-
 $this->pageTitle = Yii::app()->name;
-
-//echo 'Yii::app()->request->baseUrl: '.Yii::app()->request->baseUrl.'<br/>';
-//echo 'Yii::app()->theme->baseUrl: '.Yii::app()->theme->baseUrl.'<br/>';
 ?>
 
-<!--
-<h1>Welcome to <i><?php //echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php //echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php //echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
--->
-
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Bootstrap theme</a>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#about">About</a></li>
-				<li><a href="#contact">Contact</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">Nav header</li>
-						<li><a href="#">Separated link</a></li>
-						<li><a href="#">One more separated link</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div>
-</div>
+<!--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+<!--	<div class="container">-->
+<!--		<div class="navbar-header">-->
+<!--			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+<!--				<span class="sr-only">Toggle navigation</span>-->
+<!--				<span class="icon-bar"></span>-->
+<!--				<span class="icon-bar"></span>-->
+<!--				<span class="icon-bar"></span>-->
+<!--			</button>-->
+<!--			<a class="navbar-brand" href="#">Bootstrap theme</a>-->
+<!--		</div>-->
+<!--		<div class="navbar-collapse collapse">-->
+<!--			<ul class="nav navbar-nav">-->
+<!--				<li class="active"><a href="#">Home</a></li>-->
+<!--				<li><a href="#about">About</a></li>-->
+<!--				<li><a href="#contact">Contact</a></li>-->
+<!--				<li class="dropdown">-->
+<!--					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+<!--					<ul class="dropdown-menu">-->
+<!--						<li><a href="#">Action</a></li>-->
+<!--						<li><a href="#">Another action</a></li>-->
+<!--						<li><a href="#">Something else here</a></li>-->
+<!--						<li class="divider"></li>-->
+<!--						<li class="dropdown-header">Nav header</li>-->
+<!--						<li><a href="#">Separated link</a></li>-->
+<!--						<li><a href="#">One more separated link</a></li>-->
+<!--					</ul>-->
+<!--				</li>-->
+<!--			</ul>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
 
 <div class="container theme-showcase" role="main">
 	
