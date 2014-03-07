@@ -6,23 +6,118 @@
 	width: 930px;
 	height: 500px;
 }
-.chart_container > #roseChart {
+.chart_container #roseChart {
 	position: absolute;
 	z-index: 0;
+	top: 0;
+	left: 0;
 	/*border: 1px dotted #999999;*/
 }
-.chart_container > ._title_section {
+.chart_container ._section {
 	position: relative;
 	z-index: 1;
+	float: left;
+	clear: both;
 	font-family: 'Consolas',sans-serif;
-	color: #bbbbbb;
 	cursor: default;
-	margin: 25px 0 0 25px;
 }
-.chart_container > ._title_section > ._title {
+.chart_container ._section ._title {
+	color: #cccccc;
 	font-size: 20px;
 }
-.chart_container > ._title_section > ._desc {
+.chart_container ._section ._desc {
+	color: #bbbbbb;
 	font-size: 11px;
+}
+.chart_container ._section ._content {
+	float: left;
+	margin: 4px 0 0 0;
+}
+.chart_container ._header_section {
+	margin: 25px 0 0 25px;
+}
+.chart_container ._header_section ._desc {
 	max-width: 293px;
+}
+.chart_container .select_year_section {
+	margin: 40px 0 0 25px;
+}
+.chart_container .select_party_section {
+	margin: 40px 0 0 25px;
+}
+.chart_container ._year {
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	color: #212121;
+	background-color: #6d6d6d;
+	cursor: pointer;
+	padding: 1px 6px 2px;
+	margin: 9px -9px 0;
+}
+.chart_container ._year:nth-child(1) {
+	margin-left: -10px;
+}
+.chart_container ._year:hover {
+	background-color: #8d8d8d;
+}
+.chart_container ._party {
+	float: left;
+	clear: both;
+	cursor: pointer;
+	margin: 3px 0 0 0;
+}
+.chart_container ._party:nth-child(1) {
+	margin-top: 0;
+}
+.chart_container ._party ._color {
+	float: left;
+	width: 4px;
+	height: 23px;
+	background-color: #ffffff;
+}
+.chart_container ._party ._color._yellow { background-color: #ffff00; }
+.chart_container ._party ._color._blue { background-color: #23c0ff; }
+.chart_container ._party ._color._red { background-color: #d73a44; }
+.chart_container ._party ._text {
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	color: #212121;
+	background-color: #6d6d6d;
+	padding: 1px 6px 2px;
+	margin-left: 1px;
+}
+.chart_container ._party:hover ._text {
+	background-color: #8d8d8d;
+}
+
+/*** Rotation ***/
+
+.rotate_0 {
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+}
+
+.rotate_90 {
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+.rotate_180 {
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+.rotate_270 {
+	-moz-transform: rotate(270deg);
+	-webkit-transform: rotate(270deg);
+	-o-transform: rotate(270deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
