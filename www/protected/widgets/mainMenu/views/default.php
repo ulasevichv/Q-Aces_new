@@ -151,7 +151,7 @@ else
 	}
 	
 	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-		'id' => 'doc_consent_dialog',
+		'id' => 'login_dialog',
 		'cssFile' => null,
 		'options' => array(
 			'title' => Yii::t('general', 'Login'),
@@ -165,7 +165,7 @@ else
 			'draggable' => false,
 			'resizable' => false,
 			'closeText' => Yii::t('general', 'Close'),
-			'dialogClass' => 'login_dialog',
+			'dialogClass' => 'dialog_top',
 			'buttons' => array(
 				array(
 					'text' => Yii::t('general', 'Login'),
@@ -217,7 +217,7 @@ else
 		
 		function openLoginDialog(html)
 		{
-			var jDialog = $('#doc_consent_dialog');
+			var jDialog = $('#login_dialog');
 			var jDialogContent = jDialog.children().first();
 			
 			jDialog.parent().find('button').attr('tabindex', -1); // Buttons tabulation bug-fix.

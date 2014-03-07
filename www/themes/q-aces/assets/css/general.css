@@ -46,7 +46,6 @@
 
 /*** General ***/
 
-
 .container[role="main"] {
 	margin-top: 10px;
 }
@@ -55,6 +54,9 @@
 }
 .container > .alert {
 	margin-bottom: 10px;
+}
+.dialog_top {
+	margin-top: 27px;
 }
 
 /*** Forms ***/
@@ -141,9 +143,6 @@ form .input-group span.glyphicon {
 
 /*** Login ***/
 
-.login_dialog {
-	margin-top: 27px;
-}
 #user_login_form {
 }
 #user_login_form._not_modal {

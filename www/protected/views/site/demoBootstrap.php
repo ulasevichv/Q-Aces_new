@@ -37,11 +37,9 @@ $this->pageTitle = Yii::app()->name;
 
 <div class="container theme-showcase" role="main">
 	
-	<br/>
-	
-	<div class="page-header">
+<!--	<div class="page-header">-->
 		<h1>Modal window</h1>
-	</div>
+<!--	</div>-->
 	
 	<p>
 		<!-- Button trigger modal -->
