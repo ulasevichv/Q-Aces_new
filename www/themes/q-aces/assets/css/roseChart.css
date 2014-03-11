@@ -11,6 +11,7 @@
 	/*border: 1px dotted #666699;*/
 	position: relative;
 	float: left;
+	font-family: 'Consolas',monospace;
 	background-color: #212121;
 	width: 930px;
 	height: 500px;
@@ -29,7 +30,6 @@
 	clear: both;
 	/*font-family: 'PT Sans ',sans-serif;*/
 	/*font-family: 'PT Sans Narrow Bold',monospace,sans-serif;*/
-	font-family: 'Consolas',monospace;
 	/*letter-spacing: 0.2px;*/
 	cursor: default;
 }
@@ -120,6 +120,38 @@
 }
 .chart_container ._party[selected] ._text {
 	background-color: #ffffff;
+}
+.chart_container .results_container {
+	position: absolute;
+	z-index: 2;
+	left: 205px;
+	top: 335px;
+}
+.chart_container .results {
+	position: relative;
+	color: #cccccc;
+	background-color: #212121;
+	border: 2px solid #2d2d2d;
+	width: 140px;
+	height: 140px;
+	border-radius: 70px;
+	cursor: default;
+	text-align: center;
+	/*display: table-cell;*/
+	/*vertical-align: middle;*/
+}
+.chart_container .results ._title {
+	/*display: inline-block;*/
+	font-size: 14px;
+	margin-top: 58px;
+}
+.chart_container .results ._value {
+	font-size: 11px;
+	margin-top: 25px;
+}
+.chart_container .results ._percentage {
+	font-size: 17px;
+	font-weight: bold;
 }
 
 /*** Rotation ***/

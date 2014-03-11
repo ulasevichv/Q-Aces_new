@@ -45,6 +45,11 @@ Yii::app()->clientScript->registerCssFile($baseUrl.'/assets/css/roseChart.css');
 			</div>
 		</div>
 	</div>
+	<div class="results_container">
+		<div class="results">
+			<div class="_title">Select Issue</div>
+		</div>
+	</div>
 </div>
 
 <?php
@@ -70,10 +75,12 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 			republicans : [60,100,60,50,60,50,70,80,60,30,40,50]
 		}
 	};
+	var graphLabels = ['Economy','Jobs','Terrorism','Education','Health Care','Military','Energy','Insurance','Taxes','Immigration','Global Trade','Climate'];
 	
 	$(document).ready(function()
 	{
 		updateSelectedData();
+		attachEvents();
 		
 		$('.chart_container ._year').on('click', function()
 		{
@@ -113,7 +120,7 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 		
 		var data = graphData[selectedYear][selectedParty];
 		
-		console.log(data);
+//		console.log(data);
 		
 		var graphMainColor = null;
 		
@@ -140,16 +147,16 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 				.Set('centery', 250)
 //				.Set('gutter.left', 0)
 				.Set('ymax', 100)
-				.Set('margin', 1)
+				.Set('margin', 0.8)
 //				.Set('angles.start', -(HALFPI/2))
 				.Set('angles.start', 0)
 				.Set('labels.axes', '')
-				.Set('labels', ['Economy','Jobs','Terrorism','Education','Health Care','Military','Energy','Insurance','Taxes','Immigration','Global Trade','Climate'])
+				.Set('labels', graphLabels)
 				.Set('labels.position', 'center')
 				.Set('text.font', 'Consolas')
 				.Set('text.size', 8)
-//				.Set('text.color', '#636363')
 				.Set('text.color', '#aaaaaa')
+				.Set('text.color2', '#ffffff')
 				.Set('background.grid', true)
 				.Set('background.grid.color', '#212121')
 //				.Set('background.grid.color2', '#636363')
@@ -164,6 +171,70 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 //			roseChart.Draw();
 			RGraph.Effects.Rose.RoundRobin(roseChart);
 //			RGraph.Effects.Rose.Grow(roseChart);
+		}
+		
+		updateResults();
+	}
+	
+	function attachEvents()
+	{
+		RGraph.Register(roseChart);
+		
+		roseChart.canvas.onclick = function(e)
+		{
+			RGraph.FixEventObject(e);
+			
+			var canvas = e.target;
+			var context = canvas.getContext('2d');
+			var obj = canvas.__object__;
+			
+			var sector = obj.getSector(e);
+			
+			if (sector != null)
+			{
+				if (obj.selectedSector != null && obj.selectedSector.index == sector.index) obj.selectedSector = null;
+				else obj.selectedSector = sector;
+			}
+			
+			RGraph.Redraw();
+			
+			updateResults(obj.selectedSector);
+		}
+	}
+	
+	function updateResults()
+	{
+		var selectedSector = roseChart.selectedSector;
+		
+		var jResults = $('.chart_container .results');
+		
+		if (selectedSector == null)
+		{
+			jResults.html('<div class=\"_title\">Select Issue</div>');
+		}
+		else
+		{
+			var data = graphData[selectedYear][selectedParty];
+			var selectedValue = data[selectedSector.index];
+			
+			var partyText = '';
+			
+			switch (selectedParty)
+			{
+				case 'all': partyText = 'Americans'; break;
+				case 'democrats': partyText = 'Democrats'; break;
+				case 'republicans': partyText = 'Republicans'; break;
+			}
+			
+			var categoryText = graphLabels[selectedSector.index];
+			
+			jResults.html('<div class=\"_value\">' +
+				'<span class=\"_percentage\">' + selectedValue + '%</span>' +
+				'<br/>of ' + partyText + ' viewed' +
+				'<br/>' + categoryText +
+				'<br/>as a top priority' +
+				'<br/>in ' + selectedYear +
+				'</div>');
 		}
 	}
 	

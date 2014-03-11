@@ -30,8 +30,10 @@
         this.colorsParsed      = false;
         this.coordsText        = [];
         this.original_colors   = [];
-
-
+		
+		this.selectedSector = null;
+		
+		
         /**
         * Compatibility with older browsers
         */
@@ -140,7 +142,7 @@
             'chart.animation.roundrobin.factor':  1,
             'chart.animation.roundrobin.radius': true,
             'chart.animation.grow.multiplier': 1,
-            'chart.labels.count':              5
+            'chart.labels.count':              5,
         }
 
 
@@ -288,6 +290,7 @@
             this.DrawRose();
 			this.DrawInnerCircles();
             this.DrawLabels();
+			this.DrawSectorSelection();
     
             /**
             * Setup the context menu if required
@@ -921,7 +924,17 @@
             var centerx  = this.centerx;
             var centery  = this.centery;
     
-            for (var i=0; i<labels.length; ++i) {
+            for (var i=0; i<labels.length; ++i)
+			{
+				if (this.selectedSector != null && this.selectedSector.index == i)
+				{
+					co.fillStyle = prop['chart.text.color2'];
+				}
+				else
+				{
+					co.fillStyle = prop['chart.text.color'];
+				}
+				
                 if (typeof(variant) == 'string' && variant == 'non-equi-angular') {
                     var a = Number(this.angles[i][0]) + ((this.angles[i][1] - this.angles[i][0]) / 2);
                 } else {
@@ -948,8 +961,10 @@
                                 'text':String(labels[i]),
                                 'halign':halign,
                                 'valign':'center',
-                                    'tag': 'labels'
+                                'tag': 'labels'
                                });
+				
+//				co.fill();
             }
         }
     
@@ -1045,20 +1060,109 @@
     
             return null;
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+		
+		
+		
+		
+		this.getSector = function(e)
+		{
+			RG.FixEventObject(e);
+			
+			var angles = this.angles;
+			var ret = [];
+			
+			for (var i = 0; i < angles.length ; i++)
+			{
+				var angleStart  = angles[i][0];
+				var angleEnd    = angles[i][1];
+				var radiusStart = angles[i][2];
+				var radiusEnd   = this.radius;
+				var centerX     = angles[i][4];
+				var centerY     = angles[i][5];
+				var mouseXY     = RG.getMouseXY(e);
+				var mouseX      = mouseXY[0] - centerX;
+				var mouseY      = mouseXY[1] - centerY;
+				
+				co.beginPath();
+				co.arc(centerX, centerY, (radiusStart ? radiusStart : 0.01), angleStart, angleEnd, false);
+				co.arc(centerX, centerY, radiusEnd, angleEnd, angleStart, true);
+				co.closePath();
+				
+				if (co.isPointInPath(mouseXY[0], mouseXY[1]))
+				{
+					var sector = {
+						angleStart : angleStart,
+						angleEnd : angleEnd,
+						radiusStart : radiusStart,
+						radiusEnd : radiusEnd,
+						centerX : centerX,
+						centerY : centerY,
+						index : i
+					};
+					
+					return sector;
+				}
+			}
+			
+			return null;
+		}
+		
+		this.getDefaultSegmentByIndex = function(index)
+		{
+			var angles = this.angles;
+			
+			if (angles.length <= index) return null;
+			
+			var segment = {
+				angleStart : angles[index][0],
+				angleEnd : angles[index][1],
+				radiusStart : angles[index][2],
+				radiusEnd : angles[index][3],
+				centerX : angles[index][4],
+				centerY : angles[index][5],
+				index : index
+			};
+			
+			return segment;
+		}
+		
+		this.DrawSectorSelection = function()
+		{
+			var sector = this.selectedSector;
+			
+			if (sector == null) return;
+			
+			co.fillStyle = 'rgba(255,255,255,0.05)';
+			co.strokeStyle = 'rgba(255,255,255,0.05)';
+			
+			co.lineWidth = 1;
+			co.beginPath();
+			
+			co.moveTo(sector.centerX, sector.centerY);
+			co.arc(sector.centerX, sector.centerY, sector.radiusEnd, sector.angleStart, sector.angleEnd, false);
+			co.lineTo(sector.centerX, sector.centerY);
+			
+			co.fill();
+			co.stroke();
+			
+			var segment = this.getDefaultSegmentByIndex(sector.index);
+			
+			if (segment == null) return;
+			
+			co.fillStyle = 'rgba(255,255,255,1)';
+			co.strokeStyle = 'rgba(255,255,255,1)';
+			
+			co.lineWidth = 1;
+			co.beginPath();
+			
+			co.moveTo(segment.centerX, segment.centerY);
+			co.arc(segment.centerX, segment.centerY, segment.radiusEnd, segment.angleStart, segment.angleEnd, false);
+			co.lineTo(segment.centerX, segment.centerY);
+			
+			co.fill();
+			co.stroke();
+		}
+		
     
     
     
@@ -1295,6 +1399,8 @@
             prop['chart.title.color']      = this.parseSingleColorForGradient(prop['chart.title.color']);
             prop['chart.highlight.fill']   = this.parseSingleColorForGradient(prop['chart.highlight.fill']);
             prop['chart.highlight.stroke'] = this.parseSingleColorForGradient(prop['chart.highlight.stroke']);
+			
+			prop['chart.text.selectedColor'] = this.parseSingleColorForGradient(prop['chart.text.selectedColor']);
         }
 
 
