@@ -1,0 +1,65 @@
+/*._item {*/
+	/*width: 500px;*/
+	/*height: 300px;*/
+	/*background-color: #ff0000;*/
+	/*border-color: #000000;*/
+	/*position: absolute;*/
+	/*z-index: 1;*/
+/*}*/
+
+.carousel .carousel-control {
+	z-index: 11;
+}
+.carousel ._content {
+	position: absolute;
+	z-index: 9;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+#mainCarousel {
+	font-family: 'Roboto Condensed',sans-serif;
+	width: 900px;
+	margin: 0 0 0 110px;
+}
+#mainCarousel .carousel-inner .item img {
+	/*background: url("../images/marketing_demo/carousel_bg_900x500.png") no-repeat scroll 0 0 transparent;*/
+	background: linear-gradient(to bottom, #cccccc 0px, #999999 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background-size: 900px 500px;
+	width: 900px;
+	height: 500px;
+}
+#pcImageOne {
+	background: url("../images/marketing_demo/laptop1.png") no-repeat scroll 0 0 transparent;
+	background-size: 278px 229px;
+	width: 278px;
+	height: 229px;
+	/*position: absolute;*/
+	/*left: 0;*/
+	/*top: -270px;*/
+}
+#pcImageTwo {
+	background: url("../images/marketing_demo/laptop2.png") no-repeat scroll 0 0 transparent;
+	background-size: 278px 229px;
+	width: 278px;
+	height: 229px;
+	/*position: absolute;*/
+	/*right: 0px;*/
+	/*top: -270px;*/
+}
+#mainCarousel ._headerOne {
+	width: 100%;
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	color: #ffffff;
+	cursor: default;
+}
+#mainCarousel ._headerTwo {
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: normal;
+	color: #000000;
+	cursor: default;
+}
