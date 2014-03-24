@@ -69,7 +69,7 @@
 	color: #ffffff;
 }
 #mainCarousel .item:nth-child(1) ._laptop ._img {
-	background-size: 278px 229px;
+	background-size: 100% 100%;
 	width: 278px;
 	height: 229px;
 }
@@ -101,7 +101,94 @@
 #mainCarousel .item:nth-child(2) ._scale {
 	display: inline-block;
 	background: url("../images/marketing_demo/scale.png") no-repeat scroll 0 0 transparent;
-	background-size: 783px 477px;
+	background-size: 100% 100%;
 	width: 783px;
 	height: 477px;
+}
+#mainCarousel .item:nth-child(3) ._textPart1 {
+	margin: 70px 0 0 0;
+}
+#mainCarousel .item:nth-child(3) ._video {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin: 12px 0 0 0;
+}
+#mainCarousel .item:nth-child(4) ._textPart1 {
+	margin: 10px 0 0 0;
+}
+#mainCarousel .item:nth-child(4) ._map_container {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+#mainCarousel .item:nth-child(4) ._map {
+	position: relative;
+	display: inline-block;
+	background: url("../images/marketing_demo/map.png") no-repeat scroll 0 0 transparent;
+	background-size: 100% 100%;
+	width: 620px;
+	height: 430px;
+}
+#mainCarousel .item:nth-child(4) ._map_key_container {
+	clear: both;
+	width: 100%;
+	text-align: center;
+}
+#mainCarousel .item:nth-child(4) ._map_key {
+	display: inline-block;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item {
+	float: left;
+	display: inline-block;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item:nth-child(1) {
+	margin: 6px 0 0 0;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item:nth-child(2) {
+	margin: 2px 0 0 15px;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item:nth-child(3) {
+	margin: 0 0 0 15px;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item:nth-child(2) > ._text {
+	margin-top: 7px;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item:nth-child(3) > ._text {
+	margin-top: 10px;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item > ._img {
+	float: left;
+}
+#mainCarousel .item:nth-child(4) ._map_key > ._item > ._text {
+	float: left;
+	font-size: 14px;
+	cursor: default;
+	color: #ffffff;
+	margin: 2px 0 0 5px;
+}
+#mainCarousel .item:nth-child(4) ._textPart2 {
+	margin: 10px 0 0 0;
+}
+
+
+
+.map_circle {
+	border-radius: 50%;
+	box-shadow: 1px 1px 5px #666666;
+}
+.map_circle_yellow {
+	background-color: #ffff00;
+	width: 25px;
+	height: 25px;
+}
+.map_circle_orange {
+	background-color: #ffa500;
+	width: 34px;
+	height: 34px;
+}
+.map_circle_red {
+	background-color: #ff0000;
+	width: 43px;
+	height: 43px;
 }
