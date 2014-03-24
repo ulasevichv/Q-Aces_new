@@ -1,3 +1,42 @@
+.marketingHeader {
+	overflow: hidden;
+	background-color: #ffffff;
+	border-bottom: 6px solid #04A9EF;
+	width: 1050px;
+	margin: 0 0 0 40px;
+	padding: 0 0 10px 0;
+}
+.marketingHeader ._logo {
+	float: left;
+	background: url("../images/marketing_demo/logo.png") no-repeat scroll 0 0 transparent;
+	background-size: 100% 100%;
+	width: 228px;
+	height: 69px;
+}
+.marketingHeader ._signUpSection {
+	float: left;
+	border: 1px dotted #000000;
+	width: 300px;
+	height: 45px;
+	margin: 14px 0 0 170px;
+}
+.marketingHeader ._socialSection {
+	float: right;
+	margin: 25px 0 0 0;
+}
+.marketingHeader ._socialSection .linkedinBtn {
+	float: right;
+}
+.marketingHeader ._socialSection .linkedinBtn #fix1 #fix2 span[id*="-title"] {
+	height: 20px !important;
+}
+.marketingHeader ._socialSection .twitterBtn {
+	float: right;
+	margin: 0 -30px 0 10px;
+}
+
+
+
 .carousel .carousel-control {
 	z-index: 11;
 }

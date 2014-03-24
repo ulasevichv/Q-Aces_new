@@ -3,114 +3,143 @@ $baseUrl = Yii::app()->theme->baseUrl;
 
 Yii::app()->clientScript->registerCssFile($baseUrl.'/assets/css/marketing_demo.css');
 Yii::app()->clientScript->registerCssFile('http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+$currentPageUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->getId().'/'.Yii::app()->controller->getAction()->getId());
 ?>
 
-<div id="mainCarousel" class="carousel slide" data-ride="carousel">
-	
-	<ol class="carousel-indicators">
-		<li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#mainCarousel" data-slide-to="1"></li>
-		<li data-target="#mainCarousel" data-slide-to="2"></li>
-		<li data-target="#mainCarousel" data-slide-to="3"></li>
-	</ol>
-	
-	<div class="carousel-inner">
-		<div class="item active">
-			<img />
-			<div class="_content">
-				<div class="_textWhite _textPart1">Attention Attorneys:</div>
-				<div class="_textBlack _textPart2">Not all Internet Marketing/SEO vendors are created equal.</div>
-				<div class="_laptops">
-					<div class="_laptop _laptopOne">
-						<div class="_title">Cost of Vendor #1</div>
-						<div class="_img"></div>
-					</div>
-					<div class="_laptop _laptopTwo">
-						<div class="_title">Cost of Vendor #2</div>
-						<div class="_img"></div>
-					</div>
-				</div>
-				<div class="_textBlack _textPart3">Until now, there was no clear way to know if you were getting a good deal on your marketing spend and how your
-					cost per lead compares to others.</div>
-			</div>
-			<div class="carousel-caption">
-			</div>
+	<div class="marketingHeader">
+		<div class="_logo"></div>
+		<div class="_signUpSection">
+
 		</div>
-		<div class="item">
-			<img />
-			<div class="_content">
-				<div class="_textBlack _textPart1">
-					Internet Marketing Fiduciaries (IMF) measures the effectiveness of the Internet Marketing/SEO vendor for your firm and compares you against
-					similar law firms across the country, giving you the resources you need to come out on top in your local market.
-				</div>
-				<div class="_textYellow _textPart2">
-					Possible Results From Your Internet Marketing Monthly Spend
-				</div>
-				<div class="_scale_container">
-					<div class="_scale">
+		<div class="_socialSection">
+			<div class="twitterBtn">
+				<a href="http://twitter.com/share" class="twitter-share-button"
+				   data-url="<?php echo $currentPageUrl; ?>"
+				   data-size="standart"
+				   data-count="horizontal"
+				   data-lang="en"
+					>Tweet</a>
+			</div>
+			<div class="linkedinBtn">
+				<div id="fix1">
+					<div id="fix2">
+						<script type="IN/Share"
+						 data-url="<?php echo $currentPageUrl; ?>"
+						 data-counter="right"
+						></script>
 					</div>
-				</div>
-			</div>
-			<div class="carousel-caption">
-			</div>
-		</div>
-		<div class="item">
-			<img />
-			<div class="_content">
-				<div class="_textBlack _textPart1">
-					See how Internet Marketing Fiduciaries (IMF) can help you.
-				</div>
-				<div class="_video">
-					<iframe width="600" height="400" frameborder="0" allowfullscreen="" src="//www.youtube.com/embed/sOWvEBTxUs0">
-					</iframe>
-				</div>
-			</div>
-			<div class="carousel-caption">
-			</div>
-		</div>
-		<div class="item">
-			<img />
-			<div class="_content">
-				<div class="_textBlack _textPart1">
-					Only one law firm from each law practice area (Personal Injury, DUI, Divorce, etc.) and metro area will be allowed in to the FREE private beta.
-					Time is running out - sign up!
-				</div>
-				<div class="_map_container">
-					<div id="statesMap" class="_map">
-					</div>
-					<div class="_map_key_container">
-						<div class="_map_key">
-							<div class="_item">
-								<div class="_img map_circle map_circle_yellow"></div>
-								<div class="_text">1 practice/area</div>
-							</div>
-							<div class="_item">
-								<div class="_img map_circle map_circle_orange"></div>
-								<div class="_text">2 practices/area</div>
-							</div>
-							<div class="_item">
-								<div class="_img map_circle map_circle_red"></div>
-								<div class="_text">3 practices/area</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="_textBlack _textPart2">
-					Interested to see if you qualify? Want more information?<br/>Don't wait until it is too late!
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<a class="left carousel-control" href="#mainCarousel" data-slide="prev">
-		<span class="glyphicon glyphicon-chevron-left"></span>
-	</a>
-	
-	<a class="right carousel-control" href="#mainCarousel" data-slide="next">
-		<span class="glyphicon glyphicon-chevron-right"></span>
-	</a>
-	
-</div>
+
+	<div id="mainCarousel" class="carousel slide" data-ride="carousel">
+
+		<ol class="carousel-indicators">
+			<li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#mainCarousel" data-slide-to="1"></li>
+			<li data-target="#mainCarousel" data-slide-to="2"></li>
+			<li data-target="#mainCarousel" data-slide-to="3"></li>
+		</ol>
+
+		<div class="carousel-inner">
+			<div class="item active">
+				<img />
+				<div class="_content">
+					<div class="_textWhite _textPart1">Attention Attorneys:</div>
+					<div class="_textBlack _textPart2">Not all Internet Marketing/SEO vendors are created equal.</div>
+					<div class="_laptops">
+						<div class="_laptop _laptopOne">
+							<div class="_title">Cost of Vendor #1</div>
+							<div class="_img"></div>
+						</div>
+						<div class="_laptop _laptopTwo">
+							<div class="_title">Cost of Vendor #2</div>
+							<div class="_img"></div>
+						</div>
+					</div>
+					<div class="_textBlack _textPart3">Until now, there was no clear way to know if you were getting a good deal on your marketing spend and how your
+						cost per lead compares to others.</div>
+				</div>
+				<div class="carousel-caption">
+				</div>
+			</div>
+			<div class="item">
+				<img />
+				<div class="_content">
+					<div class="_textBlack _textPart1">
+						Internet Marketing Fiduciaries (IMF) measures the effectiveness of the Internet Marketing/SEO vendor for your firm and compares you against
+						similar law firms across the country, giving you the resources you need to come out on top in your local market.
+					</div>
+					<div class="_textYellow _textPart2">
+						Possible Results From Your Internet Marketing Monthly Spend
+					</div>
+					<div class="_scale_container">
+						<div class="_scale">
+						</div>
+					</div>
+				</div>
+				<div class="carousel-caption">
+				</div>
+			</div>
+			<div class="item">
+				<img />
+				<div class="_content">
+					<div class="_textBlack _textPart1">
+						See how Internet Marketing Fiduciaries (IMF) can help you.
+					</div>
+					<div class="_video">
+						<iframe width="600" height="400" frameborder="0" allowfullscreen="" src="//www.youtube.com/embed/sOWvEBTxUs0">
+						</iframe>
+					</div>
+				</div>
+				<div class="carousel-caption">
+				</div>
+			</div>
+			<div class="item">
+				<img />
+				<div class="_content">
+					<div class="_textBlack _textPart1">
+						Only one law firm from each law practice area (Personal Injury, DUI, Divorce, etc.) and metro area will be allowed in to the FREE private beta.
+						Time is running out - sign up!
+					</div>
+					<div class="_map_container">
+						<div id="statesMap" class="_map">
+						</div>
+						<div class="_map_key_container">
+							<div class="_map_key">
+								<div class="_item">
+									<div class="_img map_circle map_circle_yellow"></div>
+									<div class="_text">1 practice/area</div>
+								</div>
+								<div class="_item">
+									<div class="_img map_circle map_circle_orange"></div>
+									<div class="_text">2 practices/area</div>
+								</div>
+								<div class="_item">
+									<div class="_img map_circle map_circle_red"></div>
+									<div class="_text">3 practices/area</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="_textBlack _textPart2">
+						Interested to see if you qualify? Want more information?<br/>Don't wait until it is too late!
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<a class="left carousel-control" href="#mainCarousel" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+
+		<a class="right carousel-control" href="#mainCarousel" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+
+	</div>
 
 <?php
 Yii::app()->clientScript->registerScript(uniqid(), "
@@ -142,7 +171,7 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 	$(document).ready(function()
 	{
 		$('.carousel').carousel({
-		  interval: false
+		  interval: 3000
 		});
 		
 		resetMapCircles();
@@ -240,3 +269,18 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 	}
 	
 ", CClientScript::POS_HEAD);
+
+Yii::app()->clientScript->registerScript(uniqid(), "
+	
+	(function() {
+		var twitterScriptTag = document.createElement('script');
+		twitterScriptTag.type = 'text/javascript';
+		twitterScriptTag.async = true;
+		twitterScriptTag.src = 'http://platform.twitter.com/widgets.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(twitterScriptTag, s);
+	})();
+	
+", CClientScript::POS_END);
+
+Yii::app()->clientScript->registerScriptFile('//platform.linkedin.com/in.js', CClientScript::POS_END);
