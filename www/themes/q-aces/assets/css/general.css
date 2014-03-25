@@ -79,6 +79,9 @@ form > ._row {
 form > ._row:nth-child(1) {
 	margin-top: 0;
 }
+form > ._row._hidden {
+	display: none;
+}
 form label {
 	margin: 7px 0 0 0;
 	font-weight: normal;
@@ -150,9 +153,6 @@ form .input-group span.glyphicon {
 #user_login_form._not_modal > ._row,
 #user_login_form._not_modal > .alert {
 	width: 280px;
-}
-#user_login_form > ._row._submit {
-	display: none;
 }
 #user_login_form._not_modal > ._row._submit {
 	display: inherit;

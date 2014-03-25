@@ -48,6 +48,64 @@ class SiteController extends Controller
 	{
 		$this->render('demoMarketing', array());
 	}
+
+	public function actionDemoMarketingSignUp()
+	{
+		$model = new DemoMarketingSingUpForm();
+
+		$data = array(
+			'model' => $model,
+		);
+
+		$email = Yii::app()->request->getParam('email', '');
+		
+		$model->email = $email;
+		
+		$this->renderPartial('demoMarketingSignUp', $data, false, true);
+	}
+	
+	public function actionDemoMarketingSignUpValidate()
+	{
+		$model = new DemoMarketingSingUpForm();
+		
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			echo CActiveForm::validate($model);
+		}
+		
+		Yii::app()->end();
+	}
+	
+	public function actionDemoMarketingSignUpSave()
+	{
+		@ob_clean();
+		header('Expires: Thu, 01 Jan 1970 00:00:01 GMT');
+		header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Pragma: no-cache');
+		header('Content-Type: text/plain; charset=utf-8');
+		
+		$error = '';
+		
+		try
+		{
+			$model = new DemoMarketingSingUpForm();
+			
+			$model->saveCsv($_REQUEST);
+		}
+		catch (Exception $ex)
+		{
+			$error = $ex->getMessage();
+		}
+		
+		$result = (object) array(
+			'error' => $error,
+		);
+		
+		echo json_encode($result);
+		
+		Yii::app()->end();
+	}
 	
 	public function actionDemoChart()
 	{

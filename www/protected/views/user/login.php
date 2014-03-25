@@ -48,8 +48,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	
 	<div class="alert alert-danger"></div>
 	
-	<div class="_row _submit">
-		<?php echo CHtml::submitButton(Yii::t('general', 'Login'), array('class' => 'btn btn-primary')); ?>
+	<div class="_row _hidden">
+		<?php echo CHtml::submitButton('#'); ?>
 	</div>
 	
 <?php $this->endWidget(); ?>

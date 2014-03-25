@@ -10,15 +10,23 @@ $currentPageUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->getId().
 	<div class="marketingHeader">
 		<div class="_logo"></div>
 		<div class="_signUpSection">
-
+			<div class="input-group">
+				<input type="text" id="inputEmail" class="form-control" placeholder="Enter Email Address" />
+				<span class="input-group-btn">
+					<button id="btnSignUp" class="btn btn-primary">Sign Up</button>
+				</span>
+			</div>
+			<div class="_success">
+				<div class="_text">Signed up successfully!</div>
+			</div>
 		</div>
 		<div class="_socialSection">
 			<div class="twitterBtn">
 				<a href="http://twitter.com/share" class="twitter-share-button"
-				   data-url="<?php echo $currentPageUrl; ?>"
-				   data-size="standart"
-				   data-count="horizontal"
-				   data-lang="en"
+					data-url="<?php echo $currentPageUrl; ?>"
+					data-size="standart"
+					data-count="horizontal"
+					data-lang="en"
 					>Tweet</a>
 			</div>
 			<div class="linkedinBtn">
@@ -33,16 +41,16 @@ $currentPageUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->getId().
 			</div>
 		</div>
 	</div>
-
+	
 	<div id="mainCarousel" class="carousel slide" data-ride="carousel">
-
+		
 		<ol class="carousel-indicators">
 			<li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
 			<li data-target="#mainCarousel" data-slide-to="1"></li>
 			<li data-target="#mainCarousel" data-slide-to="2"></li>
 			<li data-target="#mainCarousel" data-slide-to="3"></li>
 		</ol>
-
+		
 		<div class="carousel-inner">
 			<div class="item active">
 				<img />
@@ -130,15 +138,15 @@ $currentPageUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->getId().
 				</div>
 			</div>
 		</div>
-
+		
 		<a class="left carousel-control" href="#mainCarousel" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left"></span>
 		</a>
-
+		
 		<a class="right carousel-control" href="#mainCarousel" data-slide="next">
 			<span class="glyphicon glyphicon-chevron-right"></span>
 		</a>
-
+		
 	</div>
 
 <?php
@@ -167,16 +175,6 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 	var mapCircles = [];
 	var mapAnimationIntervalId = -1;
 	var numMapCirclesDrawn = 0;
-	
-	$(document).ready(function()
-	{
-		$('.carousel').carousel({
-		  interval: 3000
-		});
-		
-		resetMapCircles();
-		startMapAnimation();
-	});
 	
 	function getMapCircleByMapCoord(mapCoord)
 	{
@@ -268,7 +266,115 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 		circle.level++;
 	}
 	
+	function loadSignUpDialogHtml()
+	{
+		var emailValue = $('#inputEmail').val();
+		
+		var request = $.ajax({
+			url : '?r=site/demoMarketingSignUp',
+			data : { email : emailValue },
+			type : 'POST',
+			dataType : 'html',
+			cache : false,
+			timeout : 5000
+		});
+		
+		request.success(function(response, status, request)
+		{
+			openSignUpDialog(response);
+		});
+		
+		request.error(requestTimedOut);
+	}
+	
+	function openSignUpDialog(html)
+	{
+		var jDialog = $('#marketing_signup_dialog');
+		var jDialogContent = jDialog.children().first();
+		
+		jDialog.parent().find('button').attr('tabindex', -1); // Buttons tabulation bug-fix.
+		
+		jDialog.dialog({
+			open: function(event, ui) {
+				window.setTimeout(function() { jDialog.parent().find('button').removeAttr('tabindex'); }, 600);
+			}
+		});
+		
+		jDialogContent.html(html);
+		
+		jDialog.parent().css({position:'absolute'}); // Overlay height bug-fix.
+		jDialog.dialog('open');
+	}
+	
+	function onSingUpSuccess()
+	{
+		$('#marketing_signup_dialog').dialog('close');
+		
+		$('._signUpSection .input-group').css('display', 'none');
+		$('._signUpSection ._success').css('display', 'block');
+	}
+	
+	function requestTimedOut(request, status, error)
+	{
+		if (status == 'timeout') alert('".Yii::t('general', 'Request timed out. Please, try again')."');
+	}
+	
 ", CClientScript::POS_HEAD);
+
+Yii::app()->clientScript->registerScript(uniqid(), "
+	
+	$('.carousel').carousel({
+	  interval: 3000
+	});
+	
+	resetMapCircles();
+	startMapAnimation();
+	
+	$('#btnSignUp').on('click', function()
+	{
+		loadSignUpDialogHtml();
+	});
+	
+", CClientScript::POS_READY);
+
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id' => 'marketing_signup_dialog',
+	'cssFile' => null,
+	'options' => array(
+		'title' => Yii::t('general', 'Sign Up'),
+		'modal' => true,
+		'autoOpen' => false,
+		'show' => array('effect' => 'size'),
+		'hide' => array('effect' => 'size'),
+		'position' => 'top',
+		'width' => 350,
+		'height' => 'auto',
+		'draggable' => false,
+		'resizable' => false,
+		'closeText' => Yii::t('general', 'Close'),
+		'dialogClass' => 'dialog_top',
+		'buttons' => array(
+			array(
+				'text' => Yii::t('general', 'Sign Up'),
+				'class' => 'btn btn-primary',
+				'click' => "js:function()
+				{
+					ajaxValidateMarketingSignUpForm();
+				}",
+			),
+			array(
+				'text' => Yii::t('general', 'Close'),
+				'class' => 'btn btn-default',
+				'click' => "js:function()
+				{
+					$(this).dialog('close');
+				}",
+			),
+		),
+	),
+));
+echo '<div class="_content"></div>';
+$this->endWidget('zii.widgets.jui.CJuiDialog');
 
 Yii::app()->clientScript->registerScript(uniqid(), "
 	

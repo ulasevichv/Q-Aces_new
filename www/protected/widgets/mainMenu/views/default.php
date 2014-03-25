@@ -170,18 +170,18 @@ else
 				array(
 					'text' => Yii::t('general', 'Login'),
 					'class' => 'btn btn-primary',
-					'click' => 'js:function()
+					'click' => "js:function()
 					{
 						ajaxValidateUserLoginForm();
-					}',
+					}",
 				),
 				array(
 					'text' => Yii::t('general', 'Close'),
 					'class' => 'btn btn-default',
-					'click' => 'js:function()
+					'click' => "js:function()
 					{
-						$(this).dialog("close");
-					}',
+						$(this).dialog('close');
+					}",
 				),
 			),
 		),
