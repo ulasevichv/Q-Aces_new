@@ -96,6 +96,12 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 			
 			request.success(function(response, status, request)
 			{
+				if (response.error != '')
+				{
+					alert(response.error);
+					return;
+				}
+				
 				onSingUpSuccess();
 			});
 			
