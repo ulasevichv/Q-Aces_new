@@ -33,11 +33,7 @@ class DemoMarketingSingUpForm extends CFormModel
 	{
 		$fileName = Yii::app()->basePath.'/userdata/demoSignUps.csv';
 		$handle = @fopen($fileName, 'r');
-		if ($handle === false)
-		{
-			$this->addError($attribute, Yii::t('general', 'Cannot open file'));
-			return;
-		}
+		if ($handle === false) return;
 		
 		while (!feof($handle))
 		{
