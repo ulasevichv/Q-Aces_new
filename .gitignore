@@ -5,3 +5,4 @@ www/protected/runtime/
 www/protected/config/main.custom.php
 www/protected/config/console.custom.php
 www/protected/tmp/
+www/protected/userData/
