@@ -335,6 +335,16 @@ Yii::app()->clientScript->registerScript(uniqid(), "
 		loadSignUpDialogHtml();
 	});
 	
+	$('#inputEmail').on('keypress', function(e)
+	{
+		if (e.which == 13)
+		{
+			e.preventDefault();
+			
+			loadSignUpDialogHtml();
+		}
+	});
+	
 ", CClientScript::POS_READY);
 
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
