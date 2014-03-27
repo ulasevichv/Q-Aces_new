@@ -87,13 +87,6 @@ class AdWordsTest extends WebTestCase
 		
 		
 		
-		
-		
-//		
-////		$this->focus($inputKeywordXpath);
-//		$this->click($btnPreviewXpath);
-//		
-//		$this->pause(2000);
 //		
 //		$this->click($inputKeywordXpath);
 //		$this->focus($inputKeywordXpath);
@@ -162,36 +155,84 @@ class AdWordsTest extends WebTestCase
 		$this->pause(20);
 		
 		$this->click($linkLocationXpath);
-
-//		$this->waitForElementPresent($inputLocationXpath);
-		$this->pause(200);
+		$this->pause(20);
 
 		$this->focus($inputLocationXpath);
 		$this->type($inputLocationXpath, 'Los Angeles');
 		$this->pause(100);
 		$this->keyPressNative('16');
+		$this->pause(400);
 		
-		$this->pause(500);
+		// Get list of all matching locations.
 		
-//		$html = $this->runScript("return $('table[gwtdebugid='\'geotargets-table\']').html();");
-//		$html = $this->runScript("return 'ONETWOTHREE';");
-		
-		
-		
-//		$html = $this->executeScript("return 'ONE TWO THREE';");
-		
-//		Yii::log($html, CLogger::LEVEL_TRACE, 'test');
+		$this->runScript("function getMatchingLocations()
+		{
+			var jMatchingLocationsTable = $('div[gwtdebugid=\"geo-suggestions-pop-up\"] div[gwtdebugid=\"suggestions\"] table[gwtdebugid=\"geotargets-table\"]');
+			
+			var jRows = jMatchingLocationsTable.find('tbody > tr');
+			
+			var locations = [];
+			
+			for (var i = 0; i < jRows.length; i++)
+			{
+				var jRow = jRows.eq(i);
+				
+				var jLocationNameDiv = jRow.find('div[class=\"aw-geopickerv2-bin-target-name\"]');
+				var jLocationTypeDiv = jRow.find('div[class=\"aw-geopickerv2-feature-type-box\"]');
+				var jLocationLink = jRow.find('a[class=\"aw-geopickerv2-bin-action-link\"]');
+				
+				var locationName = String(jLocationNameDiv.html());
+				var locationType = String(jLocationTypeDiv.html()).replace(' - ', '');
+				
+				locations.push({
+					index : i,
+					name : locationName,
+					type : locationType
+				});
+				
+				jLocationLink.attr('tempId', 'locationLink_'+i);
+			}
+			
+			return JSON.stringify(locations);
+		}");
+		$this->pause(400);
+		$locationsJson = $this->getEval("window.getMatchingLocations(); ");
 
-//		$this->runScript("
-//			$('<div/>', {
-//				id: 'foo',
-//				title: 'Become a Googler',
-//				rel: 'external',
-//				text: 'Go to Google!'
-//			}).appendTo('body');
-//		");
+		Yii::log($locationsJson, CLogger::LEVEL_TRACE, 'test');
 		
-		$this->pause(10000);
+		$locations = json_decode($locationsJson);
+		
+		if (count($locations) == 0)
+		{
+			Yii::log('ERROR: no suggested locations', CLogger::LEVEL_TRACE, 'test');
+			return;
+		}
+		
+		// Click first matching location.
+		
+//		$this->runScript("function clickFirstMatchingLocation()
+//		{
+//			
+//		}");
+//		$this->pause(400);
+//		$result = $this->getEval("window.getMatchingLocations(); ");
+		
+		
+		
+		$firstLocationLinkXpath = '//a[@tempId="locationLink_'.$locations[0]->index.'"]';
+		
+		$this->click($firstLocationLinkXpath);
+
+		$this->pause(100);
+
+		$this->click($btnPreviewXpath);
+		
+		
+		
+		
+		
+		
+		$this->pause(8000);
 		
 		Yii::log('TEST COMPLETED', CLogger::LEVEL_TRACE, 'test');
 	}
