@@ -48,6 +48,8 @@ class AdWordsTest extends WebTestCase
 {
 	private $rootTestUrl = 'http://adwords.google.com/d/AdPreview';
 	private $jQueryFilePath = '';
+	private $jQueryScript = '';
+	private $numLinksLimit = 30;
 	
 	protected function setUp()
 	{
@@ -61,7 +63,7 @@ class AdWordsTest extends WebTestCase
 	{
 		$fileName = $this->jQueryFilePath;
 		$handle = fopen($fileName, 'r');
-		$jQueryScript = fread($handle, filesize($fileName));
+		$this->jQueryScript = fread($handle, filesize($fileName));
 		fclose($handle);
 		
 		$this->open($this->rootTestUrl);
@@ -76,7 +78,7 @@ class AdWordsTest extends WebTestCase
 		
 		$this->waitForElementPresent($inputKeywordXpath);
 		
-		$this->runScript($jQueryScript);
+		$this->runScript($this->jQueryScript);
 		
 //		$this->pause(1000);
 		
@@ -151,12 +153,12 @@ class AdWordsTest extends WebTestCase
 			}
 			catch (Exception $ex) {}
 		}
-
+		
 		$this->pause(20);
 		
 		$this->click($linkLocationXpath);
 		$this->pause(20);
-
+		
 		$this->focus($inputLocationXpath);
 		$this->type($inputLocationXpath, 'Los Angeles');
 		$this->pause(100);
@@ -196,9 +198,9 @@ class AdWordsTest extends WebTestCase
 			return JSON.stringify(locations);
 		}");
 		$this->pause(400);
-		$locationsJson = $this->getEval("window.getMatchingLocations(); ");
-
-		Yii::log($locationsJson, CLogger::LEVEL_TRACE, 'test');
+		$locationsJson = $this->getEval("window.getMatchingLocations();");
+		
+//		Yii::log('LOCATIONS: '.$locationsJson, CLogger::LEVEL_TRACE, 'test');
 		
 		$locations = json_decode($locationsJson);
 		
@@ -208,32 +210,154 @@ class AdWordsTest extends WebTestCase
 			return;
 		}
 		
-		// Click first matching location.
-		
-//		$this->runScript("function clickFirstMatchingLocation()
-//		{
-//			
-//		}");
-//		$this->pause(400);
-//		$result = $this->getEval("window.getMatchingLocations(); ");
-		
-		
+		// Clicking first matching location.
 		
 		$firstLocationLinkXpath = '//a[@tempId="locationLink_'.$locations[0]->index.'"]';
 		
 		$this->click($firstLocationLinkXpath);
-
 		$this->pause(100);
+		
+		// Calling preview.
 
 		$this->click($btnPreviewXpath);
+		$iframePreviewXpath = '//iframe[@gwtdebugid="diagnosticRootView-resultsPanel"]';
 		
+		$this->pause(1500);
 		
+		if (!$this->isElementPresent($iframePreviewXpath))
+		{
+			Yii::log('ERROR: no results iframe found', CLogger::LEVEL_TRACE, 'test');
+			return;
+		}
 		
+		// Getting iframe src.
 		
+		$this->runScript("function getResultsIframeSrc()
+		{
+			var jIframe = $('iframe[gwtdebugid=\"diagnosticRootView-resultsPanel\"]');
+			
+			return jIframe.attr('src');
+		}");
+		$this->pause(400);
+		$resultsIframeSrc = $this->getEval("window.getResultsIframeSrc();");
 		
+		$this->open($resultsIframeSrc);
+		
+		// Getting links.
+		
+		$links = array();
+		
+		$pageIndex = 1;
+		
+		while (true)
+		{
+			if ($pageIndex != 1)
+			{
+				$linkXpath = '//table[@id="nav"]/tbody/tr/td[position()='.(1+$pageIndex).']/a';
+				
+				if (!$this->isElementPresent($linkXpath)) break;
+				
+				$this->click($linkXpath);
+				$this->pause(500);
+			}
+			
+			$pageLinks = $this->getPageLinks();
+			$links = array_merge($links, $pageLinks);
+			
+			if (count($links) >= $this->numLinksLimit) break;
+			
+			$pageIndex++;
+		}
+		
+		Yii::log('LINKS COUNT: '.count($links), CLogger::LEVEL_TRACE, 'test');
+		Yii::log('LINKS: '.json_encode($links), CLogger::LEVEL_TRACE, 'test');
 		
 		$this->pause(8000);
 		
 		Yii::log('TEST COMPLETED', CLogger::LEVEL_TRACE, 'test');
+	}
+	
+	private function getPageLinks()
+	{
+		$this->runScript($this->jQueryScript);
+		$this->pause(200);
+		
+		$this->runScript("
+		
+		function trim(str)
+		{
+			if (typeof str !== 'string') str = str.toString();
+			
+			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		}
+		
+		function getPageLinks()
+		{
+			var links = [];
+			
+			var jResultsDiv = $('#ires');
+			
+			jResultsDiv.css('border', '2px solid red');
+			
+			var jItemGroups = jResultsDiv.find('div.srg');
+			
+			for (var i = 0; i < jItemGroups.length; i++)
+			{
+				var jItemGroup = jItemGroups.eq(i);
+				
+				jItemGroup.css('border', '2px solid blue');
+				
+				var jItems = jItemGroup.find('li.g');
+				
+				for (var j = 0; j < jItems.length; j++)
+				{
+					var jItem = jItems.eq(j);
+					
+					jItem.css('border', '2px solid green');
+					
+					var jLink = jItem.find('div.s cite._Tc');
+					
+					jLink.css('border', '2px solid #000000');
+					
+					var linkUrl = jLink.html();
+					
+					var greaterThanIndex = linkUrl.indexOf('›');
+					
+					if (greaterThanIndex != -1)
+					{
+						linkUrl = linkUrl.substr(0, greaterThanIndex);
+					}
+					
+					var doubleDotIndex = linkUrl.indexOf('..');
+					
+					if (doubleDotIndex != -1)
+					{
+						linkUrl = linkUrl.substr(0, doubleDotIndex);
+					}
+					
+					linkUrl = linkUrl.replace('<b>', '');
+					linkUrl = linkUrl.replace('</b>', '');
+					
+					if (linkUrl.lastIndexOf('/') == linkUrl.length - 1)
+					{
+						linkUrl = linkUrl.substr(0, linkUrl.length - 1);
+					}
+					
+					linkUrl = trim(linkUrl);
+					
+					links.push({
+						url : linkUrl
+					});
+				}
+			}
+			
+			return JSON.stringify(links);
+		}
+		
+		");
+		$this->pause(400);
+		$linksJson = $this->getEval("window.getPageLinks();");
+		
+		return json_decode($linksJson);
 	}
 }
