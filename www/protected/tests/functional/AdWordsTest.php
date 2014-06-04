@@ -309,17 +309,26 @@ class AdWordsTest extends WebTestCase
 				
 				var jItems = jItemGroup.find('li.g');
 				
+				console.log('jItems.length: ' + jItems.length);
+				
 				for (var j = 0; j < jItems.length; j++)
 				{
 					var jItem = jItems.eq(j);
 					
 					jItem.css('border', '2px solid green');
 					
-					var jLink = jItem.find('div.s cite._Tc');
+					var jDiv = jItem.find('div.s');
+					
+					jDiv.css('border', '1px dotted #999900');
+					
+//					var jLink = jItem.find('div.s cite._Tc'); // Deprecated.
+					var jLink = jItem.find('div.s cite._0d');
 					
 					jLink.css('border', '2px solid #000000');
 					
 					var linkUrl = jLink.html();
+					
+					if (linkUrl == null || linkUrl == '') continue;
 					
 					var greaterThanIndex = linkUrl.indexOf('›');
 					
