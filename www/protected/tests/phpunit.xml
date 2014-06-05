@@ -9,9 +9,10 @@
 	>
 	
 	<selenium>
-		<browser name="Internet Explorer" browser="*iexplore" />
 		<!--<browser name="Firefox" browser="*firefox" />-->
 		<!--<browser name="Firefox" browser="*firefox d:/Programs/Mozilla Firefox/firefox.exe" port="4444" host="localhost" timeout="10000"/>-->
+		<!--<browser name="Internet Explorer" browser="*iexplore" />-->
+		<browser name="Google Chrome" browser="*googlechrome" />
 	</selenium>
 	
 	<logging>

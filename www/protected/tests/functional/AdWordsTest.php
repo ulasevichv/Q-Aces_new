@@ -74,9 +74,9 @@ class AdWordsTest extends WebTestCase
 		$selectLanguageXpath = '//select[@gwtdebugid="diagnose-keywords-languages"]';
 		$linkLocationXpath = '//a[@gwtdebugid="location-edit-link"]';
 		$inputLocationXpath = '//input[@gwtdebugid="geo-search-box"]';
-		$tableLocationsXpath = '//table[@gwtdebugid="geotargets-table"]';
 		
-		$this->waitForElementPresent($inputKeywordXpath);
+//		$this->waitForElementPresent($inputKeywordXpath);
+		$this->waitForElementPresent($inputLocationXpath);
 		
 		$this->runScript($this->jQueryScript);
 		
@@ -87,61 +87,14 @@ class AdWordsTest extends WebTestCase
 		$this->pause(100);
 		$this->keyPressNative('16'); // Shift
 		
-		
-		
-//		
-//		$this->click($inputKeywordXpath);
-//		$this->focus($inputKeywordXpath);
-//		
-//		$this->pause(1000);
-		
-		
-		
-		
-		
-//		
-//		
-//		$this->pause(500);
-//		
-//		$this->runScript("$('button[gwtdebugid=\'preview-ads-button\']').removeAttr('disabled');");
-		
-		
-		
-		
-		
-//		$this->runScript("function test(value)
-//		{
-//			value = (typeof(value) != 'undefined' ? value : 'default');
-//			
-//			alert(value);
-//		}");
-		
-//		$this->pause(100);
-		
-//		$this->runScript("test('new');");
-		
-//		$this->keyPress($inputKeywordXpath, '32');
-		
-//		$this->keyDown($inputKeywordXpath, "w");
-//		$this->pause(1000);
-//		$this->keyUp($inputKeywordXpath, "w");
-		
-//		$this->keyPressNative('l');
-//		$this->keyPressNative('lawyer');
-		
-		
-		
-		
-		
-		
-		
-//		$this->click($btnPreviewXpath);
-		
 		$this->select($selectDomainXpath, 'value=com');
-		$this->pause(20);
+//		$this->select($selectDomainXpath, 'value=by');
+//		$this->pause(20);
+		$this->pause(1000);
 		
-//		$requiredLanguageOptions = array('English', 'Английский');
-		$requiredLanguageOptions = array('Английский');
+		$requiredLanguageOptions = array('English', 'Английский');
+//		$requiredLanguageOptions = array('Английский');
+//		$requiredLanguageOptions = array('Dutch');
 		
 		foreach ($requiredLanguageOptions as $requiredLanguageOption)
 		{
@@ -154,7 +107,8 @@ class AdWordsTest extends WebTestCase
 			catch (Exception $ex) {}
 		}
 		
-		$this->pause(20);
+//		$this->pause(20);
+		$this->pause(1000);
 		
 		$this->click($linkLocationXpath);
 		$this->pause(20);
@@ -163,62 +117,32 @@ class AdWordsTest extends WebTestCase
 		$this->type($inputLocationXpath, 'Los Angeles');
 		$this->pause(100);
 		$this->keyPressNative('16');
-		$this->pause(400);
+//		$this->pause(400);
+		$this->pause(2000);
 		
 		// Get list of all matching locations.
 		
-		$this->runScript("function getMatchingLocations()
+		$result = $this->getMatchingLocations();
+		
+		if ($result->error != '')
 		{
-			var jMatchingLocationsTable = $('div[gwtdebugid=\"geo-suggestions-pop-up\"] div[gwtdebugid=\"suggestions\"] table[gwtdebugid=\"geotargets-table\"]');
-			
-			var jRows = jMatchingLocationsTable.find('tbody > tr');
-			
-			var locations = [];
-			
-			for (var i = 0; i < jRows.length; i++)
-			{
-				var jRow = jRows.eq(i);
-				
-				var jLocationNameDiv = jRow.find('div[class=\"aw-geopickerv2-bin-target-name\"]');
-				var jLocationTypeDiv = jRow.find('div[class=\"aw-geopickerv2-feature-type-box\"]');
-				var jLocationLink = jRow.find('a[class=\"aw-geopickerv2-bin-action-link\"]');
-				
-				var locationName = String(jLocationNameDiv.html());
-				var locationType = String(jLocationTypeDiv.html()).replace(' - ', '');
-				
-				locations.push({
-					index : i,
-					name : locationName,
-					type : locationType
-				});
-				
-				jLocationLink.attr('tempId', 'locationLink_'+i);
-			}
-			
-			return JSON.stringify(locations);
-		}");
-		$this->pause(400);
-		$locationsJson = $this->getEval("window.getMatchingLocations();");
-		
-//		Yii::log('LOCATIONS: '.$locationsJson, CLogger::LEVEL_TRACE, 'test');
-		
-		$locations = json_decode($locationsJson);
-		
-		if (count($locations) == 0)
-		{
-			Yii::log('ERROR: no suggested locations', CLogger::LEVEL_TRACE, 'test');
+			Yii::log('ERROR: '.$result->error, CLogger::LEVEL_TRACE, 'test');
 			return;
 		}
 		
+		$locations = $result->data;
+		
+//		Yii::log('LOCATIONS['.count($locations).']: '.json_encode($locations), CLogger::LEVEL_TRACE, 'test');
+		
 		// Clicking first matching location.
 		
-		$firstLocationLinkXpath = '//a[@tempId="locationLink_'.$locations[0]->index.'"]';
+		$firstLocationLinkXpath = '//a[@tempid="locationLink_'.$locations[0]->index.'"]';
 		
 		$this->click($firstLocationLinkXpath);
-		$this->pause(100);
+		$this->pause(1000);
 		
 		// Calling preview.
-
+		
 		$this->click($btnPreviewXpath);
 		$iframePreviewXpath = '//iframe[@gwtdebugid="diagnosticRootView-resultsPanel"]';
 		
@@ -232,16 +156,24 @@ class AdWordsTest extends WebTestCase
 		
 		// Getting iframe src.
 		
-		$this->runScript("function getResultsIframeSrc()
-		{
-			var jIframe = $('iframe[gwtdebugid=\"diagnosticRootView-resultsPanel\"]');
-			
-			return jIframe.attr('src');
-		}");
-		$this->pause(400);
-		$resultsIframeSrc = $this->getEval("window.getResultsIframeSrc();");
+		$result = $this->getResultsIFrameSrc();
 		
-		$this->open($resultsIframeSrc);
+		if ($result->error != '')
+		{
+			Yii::log('ERROR: '.$result->error, CLogger::LEVEL_TRACE, 'test');
+			return;
+		}
+		
+		
+		
+//		$this->runScript("");
+//		$this->pause(400);
+//		$resultsIframeSrc = $this->getEval("window.getResultsIframeSrc();");
+//		
+//		$this->open($resultsIframeSrc);
+		
+		Yii::log('FINISHED', CLogger::LEVEL_TRACE, 'test');
+		return;
 		
 		// Getting links.
 		
@@ -277,8 +209,128 @@ class AdWordsTest extends WebTestCase
 		Yii::log('TEST COMPLETED', CLogger::LEVEL_TRACE, 'test');
 	}
 	
+	private function getMatchingLocations()
+	{
+		$this->runScript("
+		
+		function jsGetMatchingLocations()
+		{
+			var error = '';
+			var locations = [];
+			
+			try
+			{
+				var jLocationsPopupDiv = $('div[gwtdebugid=\"geo-suggestions-pop-up\"]');
+				
+				if (jLocationsPopupDiv.length == 0) throw new Error('jLocationsPopupDiv.length is zero');
+				
+				var jSuggestionsDiv = jLocationsPopupDiv.find('div[gwtdebugid=\"suggestions\"]');
+				
+				if (jSuggestionsDiv.length == 0) throw new Error('jSuggestionsDiv.length is zero');
+				
+				var jLocationsTable = jSuggestionsDiv.find('table[gwtdebugid=\"geotargets-table\"]');
+				
+				if (jLocationsTable.length == 0) throw new Error('jLocationsTable.length is zero');
+				
+				var jRows = jLocationsTable.find('tbody > tr');
+				
+				if (jRows.length == 0) throw new Error('jRows.length is zero');
+				
+				for (var i = 0; i < jRows.length; i++)
+				{
+					var jRow = jRows.eq(i);
+					
+					var jLocationNameDiv = jRow.find('div[class=\"aw-geopickerv2-bin-target-name\"]');
+					var jLocationTypeDiv = jRow.find('div[class=\"aw-geopickerv2-feature-type-box\"]');
+					var jLocationLink = jRow.find('a[class=\"aw-geopickerv2-bin-action-link\"]');
+					
+					var locationName = String(jLocationNameDiv.text());
+					var locationType = String(jLocationTypeDiv.text()).replace(' - ', '');
+					
+					locations.push({
+						index : i,
+						name : locationName,
+						type : locationType
+					});
+					
+					jLocationLink.attr('tempid', 'locationLink_'+i); // Attribute names can be case sensitive, depending on a browser - use lower case.
+				}
+			}
+			catch (ex)
+			{
+				error = ex.message;
+			}
+			
+			var result = {
+				error : error
+			};
+			
+			if (error == '')
+			{
+				result.data = locations;
+			}
+			
+			return JSON.stringify(result);
+		}
+		
+		");
+		$this->pause(400);
+		$json = $this->getEval("window.jsGetMatchingLocations();");
+		
+		$result = json_decode($json);
+		
+		return $result;
+	}
+	
+	private function getResultsIFrameSrc()
+	{
+		$this->runScript("
+		
+		function jsGetResultsIFrameSrc()
+		{
+			var error = '';
+			var src = null;
+			
+			try
+			{
+				var jIFrame = $('iframe[gwtdebugid=\"diagnosticRootView-resultsPanel\"]');
+				
+				if (jIFrame.length == 0) throw new Error('jIFrame.length is zero');
+				
+				src = jIFrame.attr('src');
+				
+				if (src == null || src == '') throw new Error('jIFrame.src is empty');
+			}
+			catch (ex)
+			{
+				error = ex.message;
+			}
+			
+			var result = {
+				error : error
+			};
+			
+			if (error == '')
+			{
+				result.data = src;
+			}
+			
+			return JSON.stringify(result);
+		}
+		
+		");
+		$this->pause(400);
+		$json = $this->getEval("window.jsGetResultsIFrameSrc();");
+		
+		$result = json_decode($json);
+		
+		return $result;
+	}
+	
 	private function getPageLinks()
 	{
+		// Reloading of jQuery is required because page gets reloaded.
+		
 		$this->runScript($this->jQueryScript);
 		$this->pause(200);
 		
@@ -291,7 +343,7 @@ class AdWordsTest extends WebTestCase
 			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		}
 		
-		function getPageLinks()
+		function jsGetPageLinks()
 		{
 			var links = [];
 			
@@ -367,7 +419,7 @@ class AdWordsTest extends WebTestCase
 		
 		");
 		$this->pause(400);
-		$linksJson = $this->getEval("window.getPageLinks();");
+		$linksJson = $this->getEval("window.jsGetPageLinks();");
 		
 		return json_decode($linksJson);
 	}
