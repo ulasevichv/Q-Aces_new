@@ -309,7 +309,7 @@ class AdWordsTest extends WebTestCase
 				
 				var jItems = jItemGroup.find('li.g');
 				
-				console.log('jItems.length: ' + jItems.length);
+				if (typeof(console) != 'undefined') console.log('jItems.length: ' + jItems.length);
 				
 				for (var j = 0; j < jItems.length; j++)
 				{
@@ -321,12 +321,14 @@ class AdWordsTest extends WebTestCase
 					
 					jDiv.css('border', '1px dotted #999900');
 					
-//					var jLink = jItem.find('div.s cite._Tc'); // Deprecated.
-					var jLink = jItem.find('div.s cite._0d');
+//					var jLink = jDiv.find('cite._Tc'); // Deprecated.
+//					var jLink = jDiv.find('cite._0d');
+					var jLink = jDiv.find('cite');
 					
-					jLink.css('border', '2px solid #000000');
+					jLink.css('border', '1px solid #ff0000');
 					
-					var linkUrl = jLink.html();
+//					var linkUrl = jLink.html(); // Wrong method.
+					var linkUrl = jLink.text();
 					
 					if (linkUrl == null || linkUrl == '') continue;
 					
