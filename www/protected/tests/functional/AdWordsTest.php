@@ -69,7 +69,8 @@ class AdWordsTest extends WebTestCase
 		$this->open($this->rootTestUrl);
 		
 		$inputKeywordXpath = '//input[@class="aw-previewtool-searchterm-input"]';
-		$btnPreviewXpath = '//button[contains(@class, "aw-previewtool-searchterm-button")][@gwtdebugid="preview-ads-button"]';
+//		$btnPreviewXpath = '//button[contains(@class, "aw-previewtool-searchterm-button")][@gwtdebugid="preview-ads-button"]';
+		$btnPreviewXpath = '//button[@gwtdebugid="preview-ads-button"]';
 		$selectDomainXpath = '//select[@gwtdebugid="diagnose-keywords-domains"]';
 		$selectLanguageXpath = '//select[@gwtdebugid="diagnose-keywords-languages"]';
 		$linkLocationXpath = '//a[@gwtdebugid="location-edit-link"]';
@@ -84,8 +85,9 @@ class AdWordsTest extends WebTestCase
 		
 		$this->focus($inputKeywordXpath);
 		$this->type($inputKeywordXpath, 'lawyer');
-		$this->pause(100);
+		$this->pause(1000);
 		$this->keyPressNative('16'); // Shift
+		$this->pause(2000);
 		
 		$this->select($selectDomainXpath, 'value=com');
 //		$this->select($selectDomainXpath, 'value=by');
@@ -144,9 +146,12 @@ class AdWordsTest extends WebTestCase
 		// Calling preview.
 		
 		$this->click($btnPreviewXpath);
+		$this->pause(5000);
+		
 		$iframePreviewXpath = '//iframe[@gwtdebugid="diagnosticRootView-resultsPanel"]';
 		
-		$this->pause(1500);
+//		$this->pause(1500);
+		
 		
 		if (!$this->isElementPresent($iframePreviewXpath))
 		{
@@ -163,17 +168,14 @@ class AdWordsTest extends WebTestCase
 			Yii::log('ERROR: '.$result->error, CLogger::LEVEL_TRACE, 'test');
 			return;
 		}
+
+		$resultsIframeHref = $result->data;
 		
-		
-		
-//		$this->runScript("");
-//		$this->pause(400);
-//		$resultsIframeSrc = $this->getEval("window.getResultsIframeSrc();");
-//		
-//		$this->open($resultsIframeSrc);
-		
-		Yii::log('FINISHED', CLogger::LEVEL_TRACE, 'test');
-		return;
+		Yii::log($resultsIframeHref, CLogger::LEVEL_TRACE, 'test');
+
+		$this->open($resultsIframeHref);
+
+//		$this->pause(25000);
 		
 		// Getting links.
 		
@@ -185,7 +187,7 @@ class AdWordsTest extends WebTestCase
 		{
 			if ($pageIndex != 1)
 			{
-				$linkXpath = '//table[@id="nav"]/tbody/tr/td[position()='.(1+$pageIndex).']/a';
+				$linkXpath = '//table[@id="nav"]/tbody/tr/td[position()='.(1 + $pageIndex).']/a';
 				
 				if (!$this->isElementPresent($linkXpath)) break;
 				
